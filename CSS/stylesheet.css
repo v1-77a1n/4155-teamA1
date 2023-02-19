@@ -1,0 +1,71 @@
+/* ITSC-4155-GroupA */
+h1 {
+    color: black;
+    background-color: slategray;
+    font-size: 20px;
+    text-decoration: underline;
+    font-family: arial;
+    text-align: center;
+}
+h2 {
+    color: black;
+    background-color: slategray;
+    font-size: 20px;
+    text-decoration: underline;
+    font-family: arial;
+    text-align: center;
+}
+.banner img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    height: 300px;
+}
+.banner1 img{
+    max-width: 100%;
+}
+li {
+    color: rgb(87, 87, 87);
+    text-align: left;
+    line-height: 30px;
+    letter-spacing: 2px;
+    font-family: arial;
+    column-gap: 60px;
+}
+label {
+    color:black;
+    text-align: left;
+    line-height: 30px;
+    letter-spacing: 2px;
+    font-family: arial;
+    column-gap: 60px;
+}
+p{
+    color: rgb(87, 87, 87);
+    text-align: left;
+    line-height: 30px;
+    letter-spacing: 2px;
+    font-family: arial;
+    column-gap: 60px;
+}
+nav ul{
+    white-space: nowrap;
+    font-family: arial;
+    max-width: 1200px;
+    margin: 0 auto;
+    
+}
+nav li {
+    width: 25%;
+    display: inline-block;
+    font-size: 24px;
+    
+}
+nav li a{
+    text-decoration: none;
+    color: #4b4b4b;
+}
+nav li a.join{
+    color: #f63232
+}
