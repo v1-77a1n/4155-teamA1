@@ -20,6 +20,12 @@
     <h2 id="loc_header">Location: <!--API call goes here for city --></h2>
     <h3 class="interest_header">You are interested in: </h3>
     <h3 class="result_header">Here are some things to do in <!--Location-->:</h3>
+    <ul id="activityList">
+        <li>Null</li>
+
+
+
+    </ul>
 </body>
 
  <script type="text/javascript">
@@ -27,9 +33,12 @@
     //Next, gather lat and long.
     //Finally, run through geolocation.js function getLocationData to return JSON data.
     //This performs the full location gather operation for the user location based on IP location data.
-    let userLocation = navigator.geolocation;
-    let lat = 0;
-    let long = 0;
+    let userLocation = navigator.geolocation
+    ,   lat = 0
+    ,   long = 0
+    ,   geolocation
+    ,   offset=0;
+
     function getLatLong() {
         if(userLocation) {
             userLocation.getCurrentPosition(success);
@@ -56,13 +65,44 @@ async function getJSON(lat, long){
     };
 
     const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'
-        + long + ', ' + lat
-        + '.json?access_token=' + ACCESS_TOKEN; 
+        + long + ', ' + lat + '.json?access_token=' + ACCESS_TOKEN; 
     const reply = await fetch(url);
     const data = await reply.json();
-    const city = data.features[3].place_name; 
+    const city = data.features[3].text + ", " + data.features[5].text; 
     loc_header.innerText = "Location: " + city;
+    geolocation = data;
+    console.log(data);
+    getQuery(data);
 }
+
+
+async function getQuery(data){
+    let date_range="w2" //Default to results from last 2 weeks
+    ,   requirements="" //MUST be included in result
+    ,   exclusions="" //MUST NOT be included in result
+    ,   interests="" //includes AT LEAST ONE in result
+    ,   location=data.features[3].place_name; //City, State, Country
+
+    //Combine all query data to API Call
+    let query = "https://customsearch.googleapis.com/customsearch/v1?cx=37c4d5366145548fd&dateRestrict="
+        + date_range + "&exactTerms="
+        + requirements + "&excludeTerms="
+        + exclusions + "&num=10&orTerms="
+        + interests + "&q="
+        + "Things to do in " + location + "&start="
+        + offset + "&key=AIzaSyB384QbDLqf1z-2zKAvc1gwb2ADcEsYhTE";
+
+    const q_reply = await fetch(query);
+    const q_data = await q_reply.json();
+    console.log(q_data);
+
+    const activityList = document.getElementById("activityList");
+    
+    
+}
+
+
+
     window.onload = getLatLong();
  </script>
 
