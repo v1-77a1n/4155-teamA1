@@ -4,6 +4,13 @@
     "authors": "author",
     "version": "1.0.0",
     "main": "pathToMain",
-    "dependencies": {},
-    "type": "module"
+    "dependencies": {
+        "ejs": "^3.1.8",
+        "express": "^4.18.2",
+        "express-session": "^1.17.3",
+        "jquery": "^3.6.3",
+        "json2html": "^0.0.8",
+        "morgan": "^1.10.0"
+    },
+    "type": "Commonjs"
 }
