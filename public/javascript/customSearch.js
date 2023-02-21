@@ -1,7 +1,14 @@
+window.onload = function() {
+    checkLocationServicesEnabled();
+
+    //create click event for getResult button to display events
+    document.getElementById('getResult').onclick = () => { if(counter == 0) { displayEvents(q_data) } };
+}
 //Holds all geolocation scripting on the index page.
 
 //Init global variables
-
+let q_data;
+let counter = 0;
 //Coordinates
 let userLocation = navigator.geolocation
     ,   lat = 0
@@ -68,10 +75,25 @@ async function getQuery(data){
         + offset + "&key=AIzaSyB384QbDLqf1z-2zKAvc1gwb2ADcEsYhTE";
 
     let q_reply = await fetch(query);
-    let q_data = await q_reply.json();
+    q_data = await q_reply.json();
     console.log(q_data);
 
     let activityList = document.getElementById("activityList");
 }
 
-window.onload = checkLocationServicesEnabled();
+//displays events as list items; not most efficient way to do it - rework this if have time
+function displayEvents(data) {
+    let activityList = document.getElementById('activityList');
+    let events = data.items;
+
+    for(let i = 0; i < events.length; i++) {
+        let obj = events[i];
+        let li = document.createElement("li");
+        let a = document.createElement("a");
+        let textNode = document.createTextNode(obj["title"]);
+        a.appendChild(textNode);
+        a.setAttribute("href", obj["link"]);
+        li.appendChild(a);
+        activityList.appendChild(li);
+    }
+}
