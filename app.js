@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const morgan = require('morgan');
 const mainRoutes = require('./routes/mainRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
@@ -29,3 +30,4 @@ app.use(morgan('tiny'));
 
 //set up routes
 app.use('/', mainRoutes);
+app.use('/users', userRoutes);

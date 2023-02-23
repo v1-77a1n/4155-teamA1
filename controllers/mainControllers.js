@@ -9,3 +9,4 @@ exports.settings = (req, res) => {
 exports.bookmarks = (req, res) => {
     res.render('bookmarks');
 }
+
