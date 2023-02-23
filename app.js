@@ -14,18 +14,7 @@ app.set('view engine', 'ejs');
 
 app.listen(port, host, ()=> {
     console.log('Server is running on port', port);
-})
-
-app.use((err, req, res, next) => {
-    console.log(err.stack);
-    if (!err.status){
-        err.status = 500;
-        err.message = ("Internal Server Error");
-    }
-
-    res.status(err.status);
-    res.render('error', {error: err});
-})
+});
 
 //Creates session cookie
 app.use(session({
@@ -43,3 +32,20 @@ app.use(morgan('tiny'));
 //set up routes
 app.use('/', mainRoutes);
 app.use('/users', userRoutes);
+
+app.use((req, res, next) => {
+    let err = new Error('The server cannot locate ' + req.url);
+    err.status = 404;
+    next(err);
+});
+
+app.use((err, req, res, next) => {
+    console.log(err.stack);
+    if (!err.status){
+        err.status = 500;
+        err.message = ("Internal Server Error");
+    }
+
+    res.status(err.status);
+    res.render('error', {error: err});
+});
