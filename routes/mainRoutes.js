@@ -11,4 +11,7 @@ router.get('/settings', controller.settings);
 //Routing for bookmarks
 router.get('/bookmarks', controller.bookmarks);
 
+//Routing for login
+router.get('/login', controller.login);
+
 module.exports = router;
