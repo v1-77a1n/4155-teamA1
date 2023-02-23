@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const morgan = require('morgan');
 const mainRoutes = require('./routes/mainRoutes');
+const methodOverride = require('method-override');
 
 const app = express();
 
@@ -12,6 +13,17 @@ app.set('view engine', 'ejs');
 
 app.listen(port, host, ()=> {
     console.log('Server is running on port', port);
+})
+
+app.use((err, req, res, next) => {
+    console.log(err.stack);
+    if (!err.status){
+        err.status = 500;
+        err.message = ("Internal Server Error");
+    }
+
+    res.status(err.status);
+    res.render('error', {error: err});
 })
 
 //Creates session cookie
