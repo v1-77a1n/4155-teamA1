@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link type="text/css" rel="stylesheet" href="/css/login.css">
+
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header class="custom-bg container-fluid">
+        <div class="row">
+            <div class="col-*-auto">
+                <nav class="d-flex justify-content-between mx-5" id="nav1">
+                    <a href="index.html"><img src="/images/te-logos-cropped.jpeg" alt="logo" class="img-fluid"
+                            id="logo-image"></a>
+                    <ul class="list-inline my-auto" id="nav1-options">
+                        <li class="list-inline-item me-4"><a href="newEvent.html">Bookmarks</a></li>
+                        <li class="list-inline-item me-4"><a href="#">Settings</a></li>
+                    </ul>
+                </nav>
+                <hr class="mx-auto d-block">
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="row justify-content-center">
+                <h1>Login</h1>
+                <form>
+                    <div class="form-group row ms-5 ps-5">
+                        <label for="username" class="col-sm-2 col-form-label">Username: </label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="username" placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="form-group row ms-5 mt-4 ps-5">
+                        <label for="password" class="col-sm-2 col-form-label">Password: </label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" id="password" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group row ms-5 mt-4 ps-5">
+                        <div class="col-sm-6 offset-sm-2">
+                            <button type="submit" class="btn btn-primary">Log in</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row mt-4 ms-5 ps-5">
+                    <div clas="col-sm-6">
+                        <a href="#">Forgot password?</a>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="#">Sign up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pg-design-container" class="fixed-bottom">
+            <img src="/images/login-design.png" alt="login-design" class="img-fluid" id="pg-design">
+        </div>
+    </main>
+</body>
+
+</html>
