@@ -2,7 +2,12 @@ window.onload = function() {
     checkLocationServicesEnabled();
 
     //create click event for getResult button to display events
-    document.getElementById('getResult').onclick = () => { if(counter == 0) { displayEvents(q_data) } };
+    document.getElementById('getResult').onclick = () => { 
+        if(counter === 0) { 
+            displayEvents(q_data); 
+            counter++;
+        }
+    };
 }
 //Holds all geolocation scripting on the index page.
 
@@ -77,8 +82,6 @@ async function getQuery(data){
     let q_reply = await fetch(query);
     q_data = await q_reply.json();
     console.log(q_data);
-
-    let activityList = document.getElementById("activityList");
 }
 
 //displays events as list items; not most efficient way to do it - rework this if have time
