@@ -12,9 +12,11 @@ let port = 8080;
 let host = 'localhost';
 app.set('view engine', 'ejs');
 
+
 app.listen(port, host, ()=> {
     console.log('Server is running on port', port);
 });
+
 
 //Creates session cookie
 app.use(session({
