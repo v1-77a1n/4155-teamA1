@@ -6,3 +6,11 @@ a {
     color: #fff !important;
     text-decoration: none;
 }
+
+.custom-bg {
+    background-color: #282828;
+}
+
+#nav-line {
+    color: #fff;
+}
