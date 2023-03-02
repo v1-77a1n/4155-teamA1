@@ -14,3 +14,12 @@ a {
 #nav-line {
     color: #fff;
 }
+
+small {
+    color: #fff;
+}
+
+#ftr-options {
+    position: relative;
+    left: -1.5rem;
+}
