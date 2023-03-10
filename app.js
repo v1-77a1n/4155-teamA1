@@ -2,6 +2,7 @@
 const express = require('express');
 const session = require('express-session');
 const morgan = require('morgan');
+const Mongoose = require('mongoose');
 const mainRoutes = require('./routes/mainRoutes');
 const userRoutes = require('./routes/userRoutes');
 const methodOverride = require('method-override');
@@ -10,13 +11,18 @@ const app = express();
 
 let port = 8080;
 let host = 'localhost';
+let db = 'mongodb://localhost:27017/ITL';
 app.set('view engine', 'ejs');
 
-
-app.listen(port, host, ()=> {
-    console.log('Server is running on port', port);
-});
-
+//Connecting to Database
+Mongoose.set('strictQuery', false);
+Mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true})
+.then(() => {
+    app.listen(port, host, ()=> {
+        console.log('Server is running on port', port);
+    });
+})
+.catch(err=>console.log(err.message));
 
 //Creates session cookie
 app.use(session({
