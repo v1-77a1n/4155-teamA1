@@ -4,9 +4,10 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt'); //for password hash
 
 const userSchema = new Schema({
-    username: {type: String, required: [true, 'cannot be empty'], unique: true},
+    firstName: {type: String, required: [true, 'cannot be empty']},
+    lastName:{type: String, required: [true, 'cannot be empty']},
     email: {type: String, required: [true, 'cannot be empty'], unique: true},
-    password: {type: String, required: [true, 'cannot be empty'], min: 10, max: 25},
+    password: {type: String, required: [true, 'cannot be empty'], min: 8, max: 64},
     bookmarks: {type: Array}
 });
 
@@ -20,7 +21,7 @@ userSchema.pre('save', function(next) {
             user.password = hash;
             next();
         })
-        .catch(err=next(err));
+        .catch(err=>next(err));
     }
 });
 
