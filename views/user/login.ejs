@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Google sign-on API/Client_ID-->
+    <meta name="google-signin-client_id"
+        content="120559287708-d1rtk2bctan1t7jfke03sb8f52ei3u5f.apps.googleusercontent.com">
     <title>Login</title>
 
     <link type="text/css" rel="stylesheet" href="/css/login.css">
@@ -18,6 +21,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
+    <!--Google sign-on scripts-->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="/javaScript/googleSignIn.js"></script>
 </head>
 
 <body>
@@ -29,7 +35,7 @@
                             height="90px"></a>
                     <ul class="list-inline my-auto" id="nav1-options">
                         <li class="list-inline-item me-4"><a href="/">Home</a></li>
-                        <li class="list-inline-item me-4"><a href="/user/new">Sign up</a></li>
+                        <li class="list-inline-item me-4"><a href="/users/new">Sign up</a></li>
                         <li class="list-inline-item me-4"><a href="/bookmarks">View Saved</a></li>
                         <li class="list-inline-item me-4"><a href="/settings">Settings</a></li>
                     </ul>
@@ -43,6 +49,7 @@
             <div class="row justify-content-center mt-5 pt-4 ms-5 ps-5">
                 <h1>Login</h1>
                 <form>
+                    <div class="g-signin2"></div>
                     <div class="form-group row ms-5 ps-5">
                         <label for="username" class="col-sm-2 col-form-label">Username: </label>
                         <div class="col-sm-6">

@@ -33,3 +33,10 @@ small {
     position: relative;
     left: 5rem;
 }
+
+.g-signin2 {
+    position: relative;
+    top: 81%;
+    left: 40%;
+    width: fit-content;
+}
