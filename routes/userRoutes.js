@@ -12,4 +12,8 @@ router.post('/new', controller.newUser);
 //Routing for login
 router.get('/login', controller.login);
 
+//Routing for change account settings
+router.get('/change-email', controller.changeEmail);
+router.get('/change-password', controller.changePassword);
+
 module.exports = router;

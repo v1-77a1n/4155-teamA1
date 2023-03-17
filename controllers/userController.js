@@ -32,3 +32,9 @@ exports.login = (req, res) => {
     res.render('./user/login');
 };
 
+exports.changeEmail = (req, res) => {
+    res.render('./user/change-email');
+};
+exports.changePassword = (req, res) => {
+    res.render('./user/change-password');
+};
