@@ -40,10 +40,11 @@
                             height="90px"></a>
                     <ul class="list-inline my-auto" id="nav1-options">
                         <li class="list-inline-item me-4"><a href="/">Home</a></li>
+                        <%if(!user) {%>
                         <li class="list-inline-item me-4"><a href="/users/login">Login</a></li>
-                        <li class="list-inline-item me-4"><a href="/users/new">Sign up</a></li>
+                        <li class="list-inline-item me-4"><a href="/users/new">Sign up</a></li><%} else {%>
                         <li class="list-inline-item me-4"><a href="/bookmarks">View Saved</a></li>
-                        <li class="list-inline-item me-4"><a href="/settings">Settings</a></li>
+                        <li class="list-inline-item me-4"><a href="/settings">Settings</a></li><%}%>
                     </ul>
                 </nav>
                 <hr class="mx-auto d-block" id="nav-line">
