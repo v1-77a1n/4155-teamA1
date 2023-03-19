@@ -9,4 +9,4 @@ const resetTokenSchema = new Schema({
     hashed_id: {type: String, required: [true, 'cannot be empty']}
 });
 
-module.exports = mongoose.model('RToken', 'resetTokenSchema');
+module.exports = mongoose.model('RToken', resetTokenSchema);
