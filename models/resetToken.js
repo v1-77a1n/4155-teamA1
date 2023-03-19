@@ -9,10 +9,24 @@ const resetTokenSchema = new Schema({
     email: {type: String, required: [true, 'cannot be empty']}
 });
 
+resetTokenSchema.pre('save', function(next) {
+    let rToken = this;
+    if(!rToken.isModified('token')) {
+        return next();
+    } else {
+        bcrypt.hash(rToken.token, 10)
+        .then((hash) => {
+            rToken.token = hash;
+            next();
+        })
+        .catch(err=>next(err));
+    }
+});
+
 //comparing token in URL to stored token
 resetTokenSchema.methods.compareTokens = function(urlToken) {
     let rToken = this;
-    return bcrypt.compare(rToken.token, urlToken);
+    return bcrypt.compare(urlToken, rToken.token);
 };
 
 module.exports = mongoose.model('RToken', resetTokenSchema);
