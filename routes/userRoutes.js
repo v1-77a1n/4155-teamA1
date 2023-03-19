@@ -14,10 +14,10 @@ router.post('/new', isGuest, controller.newUser);
 router.get('/login', isGuest, controller.login);
 
 //Routing for requesting password reset as Guest
-router.get('/req-pass-change', isGuest, controller.forgotPassword);
+router.get('/req-pass-change', isGuest, controller.requestPasswdLink);
 
 //Routing for sending password reset link
-router.post('/req-pass-change', isGuest, controller.sendPasswordRest);
+router.post('/req-pass-change', isGuest, controller.sendPasswordReset);
 
 //Routing for change account settings
 router.get('/change-email', isLoggedIn, controller.changeEmail);
