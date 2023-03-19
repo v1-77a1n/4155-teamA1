@@ -34,6 +34,11 @@ app.use(session({
     cookie: {maxAge: 86400}
 }));
 
+app.use((req, res, next) => {
+    res.locals.user = req.session.user||null;
+    next();
+});
+
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 app.use(morgan('tiny'));
