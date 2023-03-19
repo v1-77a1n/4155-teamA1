@@ -119,7 +119,8 @@ nav li a.join {
     background-color: #282828;
 }
 
-a {
+#header a,
+#footer a {
     color: #fff !important;
 }
 
