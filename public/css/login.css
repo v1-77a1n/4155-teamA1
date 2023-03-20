@@ -1,8 +1,8 @@
 /* ITSC-4155-GroupA */
 /* Change */
-body {
+/*body {
     background-image: url("/images/background-design.png") !important;
-}
+}*/
 
 nav a {
     color: #fff !important;
@@ -32,11 +32,4 @@ small {
 #login-form-container {
     position: relative;
     left: 5rem;
-}
-
-.g-signin2 {
-    position: relative;
-    top: 81%;
-    left: 40%;
-    width: fit-content;
 }

@@ -1,37 +1,45 @@
 <%- include('../partials/header.ejs')%>
-    <main>
-        <div class="container" id="login-form-container">
-            <div class="row justify-content-center mt-5 pt-4 ms-5 ps-5">
+    <title>Login</title>
+    <link type="text/css" rel="stylesheet" href="/css/login.css">
+    <%- include('../partials/header-end.ejs')%>
+        <div class="content">
+            <div class="container d-flex justify-content-center align-items-center my-4">
                 <h1>Login</h1>
-                <form>
-                    <div class="g-signin2"></div>
-                    <div class="form-group row ms-5 ps-5">
-                        <label for="username" class="col-sm-2 col-form-label">Username: </label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="username" placeholder="Username" required>
+            </div>
+            <div class="container justify-content-center align-items-center" id="login-form-container">
+                <div class="row">
+                    <form>
+                        <div class="form-group row ms-5 ps-5">
+                            <label for="username" class="col-sm-2 col-form-label">Username: </label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="username" placeholder="Username" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row ms-5 mt-4 ps-5">
-                        <label for="password" class="col-sm-2 col-form-label">Password: </label>
-                        <div class="col-sm-6">
-                            <input type="password" class="form-control" id="password" placeholder="Password" required>
+                        <div class="form-group row ms-5 mt-4 ps-5">
+                            <label for="password" class="col-sm-2 col-form-label">Password: </label>
+                            <div class="col-sm-6">
+                                <input type="password" class="form-control" id="password" placeholder="Password"
+                                    required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row ms-5 mt-4 ps-5">
-                        <div class="col-sm-6 offset-sm-2">
-                            <button type="submit" class="btn btn-primary">Log in</button>
+                        <div class="form-group row ms-5 mt-4 ps-5">
+                            <div class="col-sm-6 offset-sm-2 d-flex">
+                                <button type="submit" class="btn btn-primary">Log in</button>
+                                <div class="g-signin2 ms-4"></div>
+                            </div>
                         </div>
-                    </div>
-                </form>
-                <div class="row mt-4 ms-5 ps-5">
-                    <div clas="col-sm-6">
-                        <a href="/users/req-pass-change">Forgot password?</a>
-                    </div>
-                    <div class="col-sm-6">
-                        <a href="new">Sign up</a>
-                    </div>
+                        <div class="row ms-5 mt-4 ps-5">
+                            <a href="/users/req-pass-change">Forgot password?</a>
+                        </div>
+                        <div class="row ms-5 mt-2 ps-5">
+                            <a href="new">Sign up</a>
+                        </div>
+                    </form>
+
+
+
+
+
                 </div>
             </div>
-        </div>
-    </main>
-    <%- include('../partials/footer.ejs')%>
+            <%- include('../partials/footer.ejs')%>

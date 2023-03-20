@@ -1,7 +1,7 @@
 /* ITSC-4155-GroupA */
-body {
+/*body {
     background-image: url("/images/background-design.png") !important;
-}
+}*/
 
 h1 {
     color: black;
@@ -116,7 +116,7 @@ nav li a.join {
 
 /* This is for the footer*/
 .custom-bg {
-    background-color: #282828;
+    background-color: #1e1e1d;
 }
 
 #header a,
@@ -139,4 +139,8 @@ small {
 #ftr-options {
     position: relative;
     left: -1.5rem;
+}
+
+#loc_header {
+    background-color: #bae3e3;
 }
