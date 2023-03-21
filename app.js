@@ -2,6 +2,7 @@
 const express = require('express');
 const session = require('express-session');
 const morgan = require('morgan');
+const flash = require('connect-flash');
 const Mongoose = require('mongoose');
 const mainRoutes = require('./routes/mainRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -31,11 +32,15 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     httpOnly: true,
-    cookie: {maxAge: 86400}
+    cookie: {maxAge: 480000}
 }));
+
+app.use(flash());
 
 app.use((req, res, next) => {
     res.locals.user = req.session.user||null;
+    res.locals.successMessages = req.flash('success');
+    res.locals.errorMessages = req.flash('error');
     next();
 });
 
