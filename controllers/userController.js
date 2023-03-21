@@ -10,8 +10,8 @@ const transporter = nodemailer.createTransport({
     port: 465,
     secure: true,
     auth: {
-        user: "intheloop.sys@gmail.com",
-        pass: "vbkipgwdvibtjhys"
+        user: "noreply.intheloop@gmail.com",
+        pass: "kziicheouikmuaey"
     }
 });
 
@@ -25,7 +25,10 @@ exports.new = (req, res)=>{
 exports.newUser = (req, res, next) => {
     let user = new model(req.body);
     user.save()
-    .then(() => res.redirect('/users/login'))
+    .then(() => {
+        req.flash('success', "You've successfully signed up for an account.");
+        res.redirect('/users/login');
+    })
     .catch(err => {
         if(err.name === 'ValidationError') {
             err.status = 400;
@@ -46,6 +49,33 @@ exports.newUser = (req, res, next) => {
 exports.login = (req, res) => {
     res.render('./user/login');
 };
+
+//Handles post request for logging in
+exports.loggingIn = (req, res, next) => {
+    let email = req.body.username;
+    let password = req.body.password;
+
+    model.findOne({email: email}, (err, user) => {
+        if(err) { next(err); }
+
+        if(user) {
+            user.comparePassword(password)
+            .then((result) => {
+                if(result) {
+                    req.session.user = user._id;
+                    req.flash('success', 'You have successfully logged in');
+                    res.redirect('/');
+                } else {
+                    req.flash('error', 'Wrong password');
+                    res.redirect('/users/login');
+                }
+            })
+        } else {
+            req.flash('error', 'Wrong username');
+            res.redirect('/users/login');
+        }
+    })
+}
 
 //renders passwords change req link page
 exports.requestPasswdLink = (req, res) => {
@@ -72,17 +102,15 @@ exports.sendPasswordReset = (req, res, next) => {
                     let about = "In The Loop Password Change Request";
                     let content = "<h1>You've Requested a Password Change</h1><br><p>To reset your password, click the following link or copy/paste it into your browser. The link will expire in 3 minutes and will become invalid once used.</p><br><a href='" + reset_link + "'>" + reset_link + "</a>";
                     sendEmail(email, about, content);
-                    let title = "Reset Link Sent!";
-                    let msg = "If your email exists within our records, you will receive your password reset link shortly.";
-                    res.render('./user/notification', {title, msg});
+                    req.flash('success', 'Your link has been sent! If your email exists within our records, you will receive your link shortly');
+                    res.redirect('/');
                 }
             })
             .catch((err)=>next(err)); //current error catch is only temporary; still figuring out what to do with it
         } else {
             //This lets the user know that the email has been 'sent'; this is to avoid letting threat actors know that the email doesn't exist in the database
-            let title = "Reset Link Sent!";
-            let msg = "If your email exists within our records, you will receive your password reset link shortly.";
-            res.render('./user/notification', {title, msg});
+            req.flash('success', 'Your link has been sent! If your email exists within our records, you will receive your link shortly');
+            res.redirect('/');
         }
 
     })
@@ -104,12 +132,13 @@ exports.resetPassWdPage = (req, res, next) => {
                 if(result) {
                     res.render('./user/reset-password', {email: urlEmail});
                 } else {
-                    let err = new Error();
-                    err.status = 410;
-                    err.message = "This link is no longer valid.";
-                    next(err);
+                    req.flash('error', 'This link is no longer valid');
+                    res.redirect('/users/req-pass-change');
                 }
             })
+        } else {
+            req.flash('error', 'This link is no longer valid');
+            res.redirect('/users/req-pass-change');
         }
     })
 };
@@ -132,8 +161,10 @@ exports.guestResetPasswd = (req, res, next) => {
                     if(result) {
                         let about = "Your Password Has Been Changed";
                         let content = "<p>Your password has recently been changed. If you did not request or authorized this change, it is recommended that you change your password immediately or contact us.";
-                        sendEmail(email, about, content);
+                        
+                        req.flash('success', 'Your password has successfully been changed!');
 
+                        sendEmail(email, about, content);
                         rToken.findOneAndDelete({email: email}, (err, rToken) => {
                             if(err) {
                                 next(err);
@@ -145,9 +176,7 @@ exports.guestResetPasswd = (req, res, next) => {
                         })
 
                     } else {
-                        let title = "We were unable to change your password";
-                        let msg = "Try again or request a new link.";
-                        res.render('./user/notification', {title, msg});
+                        req.flash('error', 'We were unable to change your password. Try again or request a new link.');
                     }
                 })
                 .catch(err=>next(err))
@@ -157,11 +186,116 @@ exports.guestResetPasswd = (req, res, next) => {
     })
 };
 
+//handles rendering of change email and change password pages
 exports.changeEmail = (req, res) => {
     res.render('./user/change-email');
 };
 exports.changePassword = (req, res) => {
     res.render('./user/change-password');
+};
+
+//Handles post request for change of email while logged in
+exports.emailChangeHandler = (req, res, next) => {
+    let id = req.session.user;
+    let currentEmail = "";
+    let newEmail = req.body.email;
+    let password = req.body.password;
+    
+    model.findOne({_id: id}, (err, user) => {
+        if(err) {
+            next(err);
+        }
+
+        if(user) {
+            currentEmail = user.email;
+            user.comparePassword(password)
+            .then((result) => {
+                if(result) {
+                    model.findOneAndUpdate({_id: id}, {email: newEmail}, (err, user) => {
+                        if(err) {
+                            next(err);
+                        }
+
+                        if(user) {
+                            req.flash('success', 'Your email has successfully been changed!');
+                            let about = "Your Email Has Been Changed!";
+                            let content = "Your email was changed from " + currentEmail + " to " + newEmail + ". This notification has been sent to both your old and your new email.";
+                            let to = currentEmail + ", " + newEmail;
+                            sendEmail(to, about, content);
+                            res.redirect('/settings');
+                        } else {
+                            req.flash('error', 'Something went wrong while trying to update your email. Please try again later.');
+                            res.redirect('/settings');
+                        }
+                    })
+                } else {
+                    req.flash('error', 'Wrong password');
+                    res.redirect('/users/change-email');
+                }
+            })
+            .catch((err) => next(err))
+        } else {
+            let error = new Error();
+            next(error);
+        }
+    })
+};
+
+//Handles post request for change of password while logged in
+exports.passwordChangeHandler = (req, res, next) => {
+    let id = req.session.user;
+    let password = req.body.password;
+    let confirmPassword = req.body.confirmPassword;
+    let newPassword = req.body.newPassword;
+    
+    model.findOne({_id: id})
+    .then((user) => {
+        if(user && (confirmPassword === newPassword)) {
+            user.comparePassword(password)
+            .then((result) => {
+                if(result) {
+                    bcrypt.hash(newPassword, 10)
+                    .then((hash) => {
+                        model.findOneAndUpdate({_id: id}, {password: hash}, (err, user) => {
+                            if(err) { next(err); }
+
+                            if (user) {
+                                req.flash('success', "You've successfully changed your password!");
+                                let email = user.email;
+                                let about = "Your Password Has Been Changed";
+                                let content = "This is your confirmation email that you've changed your password.";
+                                sendEmail(email, about, content);
+                                res.redirect('/settings');
+                            } else {
+                                req.flash('error', 'There was an error attempting to update your password. Please try again later or contact us.');
+                                res.redirect('/')
+                            }
+                        })
+                    })
+                    .catch(err=>next(err))
+                } else {
+                    req.flash('error', 'The password you entered does not match the current password for your account');
+                    res.redirect('/users/change-password');
+                }
+            })
+            .catch(err=>next(err))
+        } else {
+            req.flash('error', 'New Password and Password Confirmation Not Matching');
+            res.redirect('/users/change-password');
+        }
+    })
+    .catch(err=>next(err))
+};
+
+//Handles logout request
+exports.logout = (req, res, next) => {
+    req.session.destroy((err) => {
+        if(err) {
+            return next(err);
+        } else {
+            res.redirect('/');
+        }
+    })
 };
 
 function sendEmail(email, title, content) {
@@ -173,14 +307,11 @@ function sendEmail(email, title, content) {
     }
 
     transporter.sendMail(mailConfigs, (err, info) => {
-        if(error) {
-            console.log(error.status + " " + error.message)
+        if(err) {
+            console.log(err.status + " " + err.message)
         }
 
-        let title = "Reset Link Sent!";
-        let msg = "If your email exists within our records, you will receive your password reset link shortly.";
-        res.render('./user/notification', {title, msg});
     });
 
     return true;
-}
+};
