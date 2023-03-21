@@ -8,18 +8,17 @@
             </div>
             <div class="container justify-content-center align-items-center" id="login-form-container">
                 <div class="row">
-                    <form>
+                    <form action = "/users/login" method="POST">
                         <div class="form-group row ms-5 ps-5">
-                            <label for="username" class="col-sm-2 col-form-label">Username: </label>
+                            <label for="username" class="col-sm-2 col-form-label">Username (Email): </label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="username" placeholder="Username" required>
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
                             </div>
                         </div>
                         <div class="form-group row ms-5 mt-4 ps-5">
                             <label for="password" class="col-sm-2 col-form-label">Password: </label>
                             <div class="col-sm-6">
-                                <input type="password" class="form-control" id="password" placeholder="Password"
-                                    required>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                             </div>
                         </div>
                         <div class="form-group row ms-5 mt-4 ps-5">
