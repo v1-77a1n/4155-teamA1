@@ -33,3 +33,25 @@ small {
     position: relative;
     left: 5rem;
 }
+
+/** For flash messages **/
+#errorHeader {
+    width: auto;
+    height: auto
+}
+
+.success {
+    background: green;
+    color: #fff;
+    width: 85;
+    text-align: center;
+    height: 30px;
+  }
+  
+  .error {
+    background: red;
+    color: #fff;
+    width: auto;
+    text-align: center;
+    height: 30px;
+  }

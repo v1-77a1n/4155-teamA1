@@ -144,3 +144,25 @@ small {
 #loc_header {
     background-color: #bae3e3;
 }
+
+/** For flash messages **/
+#errorHeader {
+    width: auto;
+    height: auto
+}
+
+.success {
+    background: green;
+    color: #fff;
+    width: 85;
+    text-align: center;
+    height: 30px;
+  }
+  
+  .error {
+    background: red;
+    color: #fff;
+    width: auto;
+    text-align: center;
+    height: 30px;
+  }
