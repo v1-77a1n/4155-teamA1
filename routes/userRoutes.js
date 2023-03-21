@@ -13,6 +13,9 @@ router.post('/new', isGuest, controller.newUser);
 //Routing for login
 router.get('/login', isGuest, controller.login);
 
+//Routing for POST to handle login
+router.post('/login', isGuest, controller.loggingIn);
+
 //Routing for requesting password reset as Guest
 router.get('/req-pass-change', isGuest, controller.requestPasswdLink);
 
@@ -29,4 +32,11 @@ router.post('/reset-password', isGuest, controller.guestResetPasswd);
 router.get('/change-email', isLoggedIn, controller.changeEmail);
 router.get('/change-password', isLoggedIn, controller.changePassword);
 
+//Routing for posts requests for change email and change password
+router.post('/change-email', isLoggedIn, controller.emailChangeHandler);
+router.post('/change-password', isLoggedIn, controller.passwordChangeHandler);
+
+
+//Handles logging out
+router.get('/logout', isLoggedIn, controller.logout);
 module.exports = router;
