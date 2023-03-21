@@ -27,13 +27,32 @@
                             <%} else {%>
                                 <li class="list-inline-item me-4"><a href="/bookmarks">View Saved</a></li>
                                 <li class="list-inline-item me-4"><a href="/settings">Settings</a></li>
-                                <%}%>
+                                <li class="list-inline-item me-4"><a href="/users/logout">Logout</a></li>"
+                            <%}%>
                     </ul>
                 </nav>
                 <hr class="mx-auto d-block" id="nav-line">
             </div>
         </div>
     </header>
+    <section id="errorHeader">
+        <% if(errorMessages.length > 0) {%>
+            <% errorMessages.forEach(message=>{%>
+                <div class='error'>
+                     <%=message%>
+                </div>
+            <%});%>
+        <%}%>
+                
+        <% if(successMessages.length > 0) {%>
+                
+            <% successMessages.forEach(message=>{%>
+                <div class='success'>
+                    <%=message%>
+                </div>
+            <%});%>
+        <%}%>
+    </section>
     <!--<h1>InTheLoop</h1>-->
 
     <!--<div class="topnav">
