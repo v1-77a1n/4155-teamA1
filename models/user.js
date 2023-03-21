@@ -26,7 +26,7 @@ userSchema.pre('save', function(next) {
 });
 
 //login methods; comparing user input password to stored hash
-userSchema.methods.comparePassword = function(loginPasswdInput) {
+userSchema.methods.comparePassword = function(loginPasswordInput) {
     let user = this;
     return bcrypt.compare(loginPasswordInput, user.password);
 };
