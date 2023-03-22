@@ -1,0 +1,57 @@
+/* ITSC-4155-GroupA */
+/* Change */
+/*body {
+    background-image: url("/images/background-design.png") !important;
+}*/
+
+nav a {
+    color: #fff !important;
+}
+
+ul li a {
+    text-decoration: none;
+}
+
+.custom-bg {
+    background-color: #282828;
+}
+
+#nav-line {
+    color: #fff;
+}
+
+small {
+    color: #fff;
+}
+
+#ftr-options {
+    position: relative;
+    left: -1.5rem;
+}
+
+#login-form-container {
+    position: relative;
+    left: 5rem;
+}
+
+/** For flash messages **/
+#errorHeader {
+    width: auto;
+    height: auto
+}
+
+.success {
+    background: green;
+    color: #fff;
+    width: 85;
+    text-align: center;
+    height: 30px;
+  }
+  
+  .error {
+    background: red;
+    color: #fff;
+    width: auto;
+    text-align: center;
+    height: 30px;
+  }

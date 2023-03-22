@@ -1,0 +1,18 @@
+<%- include('./partials/header.ejs')%>
+    <title>Home</title>
+    <link type="text/css" rel="stylesheet" href="/css/stylesheet.css">
+    <%- include('./partials/header-end.ejs')%>
+        <div class="content">
+            <h2 id="loc_header">Location: <!--API call goes here for city --></h2>
+            <div class="container d-flex justify-content-center align-items-center">
+                <h3 id="interest_header">You are interested in: </h3>
+            </div>
+            <div class="container d-flex justify-content-center align-items-center">
+                <h3 id="result_header">Here are some things to do in <!--Location-->:</h3>
+            </div>
+            <div class="container d-flex justify-content-center align-items-center">
+                <input type="button" id="getResult" name="getResult" value="Get Events">
+                <ul id="activityList"></ul>
+            </div>
+        </div>
+        <%- include('./partials/footer.ejs')%>
