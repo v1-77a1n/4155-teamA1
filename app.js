@@ -18,13 +18,13 @@ app.set('view engine', 'ejs');
 
 //Connecting to Database
 Mongoose.set('strictQuery', false);
-Mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true})
-.then(() => {
-    app.listen(port, host, ()=> {
-        console.log('Server is running on port', port);
-    });
-})
-.catch(err=>console.log(err.message));
+Mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        app.listen(port, host, () => {
+            console.log('Server is running on port', port);
+        });
+    })
+    .catch(err => console.log(err.message));
 
 //Creates session cookie
 app.use(session({
@@ -32,20 +32,20 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     httpOnly: true,
-    cookie: {maxAge: 480000}
+    cookie: { maxAge: 480000 }
 }));
 
 app.use(flash());
 
 app.use((req, res, next) => {
-    res.locals.user = req.session.user||null;
+    res.locals.user = req.session.user || null;
     res.locals.successMessages = req.flash('success');
     res.locals.errorMessages = req.flash('error');
     next();
 });
 
 app.use(express.static('public'));
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
 
 //set up routes
@@ -60,11 +60,11 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
     console.log(err.stack);
-    if (!err.status){
+    if (!err.status) {
         err.status = 500;
         err.message = ("Internal Server Error");
     }
 
     res.status(err.status);
-    res.render('error', {error: err});
+    res.render('error', { error: err });
 });
