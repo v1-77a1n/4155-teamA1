@@ -8,7 +8,9 @@ const userSchema = new Schema({
     lastName:{type: String, required: [true, 'cannot be empty']},
     email: {type: String, required: [true, 'cannot be empty'], unique: true},
     password: {type: String, required: [true, 'cannot be empty'], min: 8, max: 64},
-    bookmarks: {type: Array}
+    bookmarks: {type: Array},
+    interests: {type: Array},
+    dislikes: {type: Array}
 });
 
 userSchema.pre('save', function(next) {

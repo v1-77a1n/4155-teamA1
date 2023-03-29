@@ -1,3 +1,21 @@
+import {model} from '../models/user.js';
+
+exports.getData = (req, res, next) => {
+    let email = req.body.username; //get email to find interests and dislikes from user
+    
+    model.findOne({email: email}, (err, user) => {
+        if(err) { next(err); }
+
+        if(user) {
+            interests = user.interests;
+            exclusions = user.dislikes;
+        } else {
+            req.flash('error', 'Not Logged In');
+        }
+    })
+}
+
+
 window.onload = function() {
     checkLocationServicesEnabled();
 
