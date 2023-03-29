@@ -157,12 +157,41 @@ small {
     width: 85;
     text-align: center;
     height: 30px;
-  }
-  
-  .error {
+}
+
+.error {
     background: red;
     color: #fff;
     width: auto;
     text-align: center;
     height: 30px;
-  }
+}
+
+/* Resizing for smaller devices */
+@media screen and (min-width: 360px) and (max-width: 390px) {
+    footer {
+        position: absolute;
+        top: 85%;
+    }
+}
+
+@media screen and (min-width: 391px) and (max-width: 767px) {
+    footer {
+        position: absolute;
+        top: 80%;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 820px) {
+    footer {
+        position: absolute;
+        top: 60%;
+    }
+}
+
+@media screen and (min-width: 821px) and (max-width: 912px) {
+    footer {
+        position: absolute;
+        top: 50%;
+    }
+}

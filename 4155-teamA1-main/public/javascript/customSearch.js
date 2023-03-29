@@ -93,15 +93,20 @@ function displayEvents(data) {
         let obj = events[i];
         let li = document.createElement("li");
         let a = document.createElement("a");
-    
-        let b = document.createElement("button");
         let textNode = document.createTextNode(obj["title"]);
-        let createButton = document.createElement("button")
+        //create Button for register
+        let button = document.createElement("button");
+        button.innerText = "register for event";
+
         a.appendChild(textNode);
         a.setAttribute("href", obj["link"]);
-        createButton.innerText="register for event"
+        
         li.appendChild(a);
+
         activityList.appendChild(li);
-        activityList.appendChild(createButton);
+        activityList.appendChild(button);
+        button.onclick = function(){
+            alert('You have registerd for this event' + obj["title"] + "!!!") ;return false;
+        };
     }
 }
