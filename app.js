@@ -10,10 +10,10 @@ const methodOverride = require('method-override');
 
 const app = express();
 
-const password = encodeURIComponent("71baQmseFl9wevNo");
+const password = encodeURIComponent("cwWBPf8c3ypio768");
 let port = 8080;
 let host = 'localhost';
-let db = 'mongodb+srv://admin:' + password + '@itldb.xcq0k8q.mongodb.net/test';
+let db = 'mongodb+srv://admin:' + password + '@dbitl.9mwv6wq.mongodb.net/dbITL';
 app.set('view engine', 'ejs');
 
 //Connecting to Database
