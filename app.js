@@ -10,10 +10,10 @@ const methodOverride = require('method-override');
 
 const app = express();
 
-const passwd = encodeURIComponent("gyBmKBye8Zq65bM4");
+const password = encodeURIComponent("71baQmseFl9wevNo");
 let port = 8080;
 let host = 'localhost';
-let db = 'mongodb+srv://admin:' + passwd + '@intheloop.ehf95y6.mongodb.net/InTheLoop';
+let db = 'mongodb+srv://admin:' + password + '@itldb.xcq0k8q.mongodb.net/test';
 app.set('view engine', 'ejs');
 
 //Connecting to Database
