@@ -8,7 +8,7 @@
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
     crossorigin="anonymous"></script>
 <!--Google sign-on scripts-->
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="/javaScript/googleSignIn.js"></script>
 </head>
 
@@ -28,7 +28,7 @@
                                 <li class="list-inline-item me-4"><a href="/bookmarks">View Saved</a></li>
                                 <li class="list-inline-item me-4"><a href="/settings">Settings</a></li>
                                 <li class="list-inline-item me-4"><a href="/users/logout">Logout</a></li>"
-                            <%}%>
+                                <%}%>
                     </ul>
                 </nav>
                 <hr class="mx-auto d-block" id="nav-line">
@@ -36,22 +36,22 @@
         </div>
     </header>
     <section id="errorHeader">
-        <% if(errorMessages.length > 0) {%>
+        <% if(errorMessages.length> 0) {%>
             <% errorMessages.forEach(message=>{%>
                 <div class='error'>
-                     <%=message%>
-                </div>
-            <%});%>
-        <%}%>
-                
-        <% if(successMessages.length > 0) {%>
-                
-            <% successMessages.forEach(message=>{%>
-                <div class='success'>
                     <%=message%>
                 </div>
-            <%});%>
-        <%}%>
+                <%});%>
+                    <%}%>
+
+                        <% if(successMessages.length> 0) {%>
+
+                            <% successMessages.forEach(message=>{%>
+                                <div class='success'>
+                                    <%=message%>
+                                </div>
+                                <%});%>
+                                    <%}%>
     </section>
     <!--<h1>InTheLoop</h1>-->
 

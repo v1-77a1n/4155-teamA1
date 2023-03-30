@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
 
 
 //renders the signup page
-exports.new = (req, res)=>{
+exports.new = (req, res) => {
     return res.render('./user/new');
 };
 
@@ -25,24 +25,24 @@ exports.new = (req, res)=>{
 exports.newUser = (req, res, next) => {
     let user = new model(req.body);
     user.save()
-    .then(() => {
-        req.flash('success', "You've successfully signed up for an account.");
-        res.redirect('/users/login');
-    })
-    .catch(err => {
-        if(err.name === 'ValidationError') {
-            err.status = 400;
-            err.message = "Bad Database Request";
-        }
+        .then(() => {
+            req.flash('success', "You've successfully signed up for an account.");
+            res.redirect('/users/login');
+        })
+        .catch(err => {
+            if (err.name === 'ValidationError') {
+                err.status = 400;
+                err.message = "Bad Database Request";
+            }
 
-        if(err.name === 'MongoError') {
-            err.status = 400;
-            err.message = "Bad Database Request";
-        }
+            if (err.name === 'MongoError') {
+                err.status = 400;
+                err.message = "Bad Database Request";
+            }
 
-        next(err);
+            next(err);
 
-    });
+        });
 };
 
 //renders the login page
@@ -55,21 +55,21 @@ exports.loggingIn = (req, res, next) => {
     let email = req.body.username;
     let password = req.body.password;
 
-    model.findOne({email: email}, (err, user) => {
-        if(err) { next(err); }
+    model.findOne({ email: email }, (err, user) => {
+        if (err) { next(err); }
 
-        if(user) {
+        if (user) {
             user.comparePassword(password)
-            .then((result) => {
-                if(result) {
-                    req.session.user = user._id;
-                    req.flash('success', 'You have successfully logged in');
-                    res.redirect('/');
-                } else {
-                    req.flash('error', 'Wrong password');
-                    res.redirect('/users/login');
-                }
-            })
+                .then((result) => {
+                    if (result) {
+                        req.session.user = user._id;
+                        req.flash('success', 'You have successfully logged in');
+                        res.redirect('/');
+                    } else {
+                        req.flash('error', 'Wrong password');
+                        res.redirect('/users/login');
+                    }
+                })
         } else {
             req.flash('error', 'Wrong username');
             res.redirect('/users/login');
@@ -87,26 +87,26 @@ exports.sendPasswordReset = (req, res, next) => {
     let reqToken = crypto.randomBytes(8).toString('hex');
     let email = req.body.email;
 
-    model.findOne({email: email}, (err, user) => {
-        if(err) {
+    model.findOne({ email: email }, (err, user) => {
+        if (err) {
             next(err);
         }
 
-        if(user) {
+        if (user) {
             //stores id and token into the reset token collection. The hashed version of the id and token will be in the URL sent to the user itself
-            let stored_token = new rToken({createdAt: new Date(), token: reqToken, email: email});
+            let stored_token = new rToken({ createdAt: new Date(), token: reqToken, email: email });
             stored_token.save()
-            .then((result) => {
-                if(result) {
-                    let reset_link = "http://localhost:8080/users/reset-password?token=" + reqToken + "&email=" + email;
-                    let about = "In The Loop Password Change Request";
-                    let content = "<h1>You've Requested a Password Change</h1><br><p>To reset your password, click the following link or copy/paste it into your browser. The link will expire in 3 minutes and will become invalid once used.</p><br><a href='" + reset_link + "'>" + reset_link + "</a>";
-                    sendEmail(email, about, content);
-                    req.flash('success', 'Your link has been sent! If your email exists within our records, you will receive your link shortly');
-                    res.redirect('/');
-                }
-            })
-            .catch((err)=>next(err)); //current error catch is only temporary; still figuring out what to do with it
+                .then((result) => {
+                    if (result) {
+                        let reset_link = "http://localhost:8080/users/reset-password?token=" + reqToken + "&email=" + email;
+                        let about = "In The Loop Password Change Request";
+                        let content = "<h1>You've Requested a Password Change</h1><br><p>To reset your password, click the following link or copy/paste it into your browser. The link will expire in 3 minutes and will become invalid once used.</p><br><a href='" + reset_link + "'>" + reset_link + "</a>";
+                        sendEmail(email, about, content);
+                        req.flash('success', 'Your link has been sent! If your email exists within our records, you will receive your link shortly');
+                        res.redirect('/');
+                    }
+                })
+                .catch((err) => next(err)); //current error catch is only temporary; still figuring out what to do with it
         } else {
             //This lets the user know that the email has been 'sent'; this is to avoid letting threat actors know that the email doesn't exist in the database
             req.flash('success', 'Your link has been sent! If your email exists within our records, you will receive your link shortly');
@@ -121,21 +121,21 @@ exports.resetPassWdPage = (req, res, next) => {
     let urlToken = req.query.token;
     let urlEmail = req.query.email;
 
-    rToken.findOne({email: urlEmail}, (err, rToken) => {
-        if(err) {
+    rToken.findOne({ email: urlEmail }, (err, rToken) => {
+        if (err) {
             next(err);
         }
 
-        if(rToken) {
+        if (rToken) {
             rToken.compareTokens(urlToken)
-            .then((result) => {
-                if(result) {
-                    res.render('./user/reset-password', {email: urlEmail});
-                } else {
-                    req.flash('error', 'This link is no longer valid');
-                    res.redirect('/users/req-pass-change');
-                }
-            })
+                .then((result) => {
+                    if (result) {
+                        res.render('./user/reset-password', { email: urlEmail });
+                    } else {
+                        req.flash('error', 'This link is no longer valid');
+                        res.redirect('/users/req-pass-change');
+                    }
+                })
         } else {
             req.flash('error', 'This link is no longer valid');
             res.redirect('/users/req-pass-change');
@@ -147,41 +147,41 @@ exports.resetPassWdPage = (req, res, next) => {
 exports.guestResetPasswd = (req, res, next) => {
     let email = req.body.userEmail;
 
-    model.findOne({email: email}, (err, user) => {
-        if(err) {
+    model.findOne({ email: email }, (err, user) => {
+        if (err) {
             next(err);
         }
 
-        if(user) {
+        if (user) {
             let password = req.body.password;
             bcrypt.hash(password, 10)
-            .then((hash) => {
-                model.findOneAndUpdate({email: email}, {password: hash})
-                .then((result) => {
-                    if(result) {
-                        let about = "Your Password Has Been Changed";
-                        let content = "<p>Your password has recently been changed. If you did not request or authorized this change, it is recommended that you change your password immediately or contact us.";
-                        
-                        req.flash('success', 'Your password has successfully been changed!');
+                .then((hash) => {
+                    model.findOneAndUpdate({ email: email }, { password: hash })
+                        .then((result) => {
+                            if (result) {
+                                let about = "Your Password Has Been Changed";
+                                let content = "<p>Your password has recently been changed. If you did not request or authorized this change, it is recommended that you change your password immediately or contact us.";
 
-                        sendEmail(email, about, content);
-                        rToken.findOneAndDelete({email: email}, (err, rToken) => {
-                            if(err) {
-                                next(err);
-                            } 
+                                req.flash('success', 'Your password has successfully been changed!');
 
-                            if(rToken || rToken == null) {
-                                res.redirect('/users/login');
+                                sendEmail(email, about, content);
+                                rToken.findOneAndDelete({ email: email }, (err, rToken) => {
+                                    if (err) {
+                                        next(err);
+                                    }
+
+                                    if (rToken || rToken == null) {
+                                        res.redirect('/users/login');
+                                    }
+                                })
+
+                            } else {
+                                req.flash('error', 'We were unable to change your password. Try again or request a new link.');
                             }
                         })
-
-                    } else {
-                        req.flash('error', 'We were unable to change your password. Try again or request a new link.');
-                    }
+                        .catch(err => next(err))
                 })
-                .catch(err=>next(err))
-            })
-            .catch(err=>next(err))
+                .catch(err => next(err))
         }
     })
 };
@@ -200,40 +200,40 @@ exports.emailChangeHandler = (req, res, next) => {
     let currentEmail = "";
     let newEmail = req.body.email;
     let password = req.body.password;
-    
-    model.findOne({_id: id}, (err, user) => {
-        if(err) {
+
+    model.findOne({ _id: id }, (err, user) => {
+        if (err) {
             next(err);
         }
 
-        if(user) {
+        if (user) {
             currentEmail = user.email;
             user.comparePassword(password)
-            .then((result) => {
-                if(result) {
-                    model.findOneAndUpdate({_id: id}, {email: newEmail}, (err, user) => {
-                        if(err) {
-                            next(err);
-                        }
+                .then((result) => {
+                    if (result) {
+                        model.findOneAndUpdate({ _id: id }, { email: newEmail }, (err, user) => {
+                            if (err) {
+                                next(err);
+                            }
 
-                        if(user) {
-                            req.flash('success', 'Your email has successfully been changed!');
-                            let about = "Your Email Has Been Changed!";
-                            let content = "Your email was changed from " + currentEmail + " to " + newEmail + ". This notification has been sent to both your old and your new email.";
-                            let to = currentEmail + ", " + newEmail;
-                            sendEmail(to, about, content);
-                            res.redirect('/settings');
-                        } else {
-                            req.flash('error', 'Something went wrong while trying to update your email. Please try again later.');
-                            res.redirect('/settings');
-                        }
-                    })
-                } else {
-                    req.flash('error', 'Wrong password');
-                    res.redirect('/users/change-email');
-                }
-            })
-            .catch((err) => next(err))
+                            if (user) {
+                                req.flash('success', 'Your email has successfully been changed!');
+                                let about = "Your Email Has Been Changed!";
+                                let content = "Your email was changed from " + currentEmail + " to " + newEmail + ". This notification has been sent to both your old and your new email.";
+                                let to = currentEmail + ", " + newEmail;
+                                sendEmail(to, about, content);
+                                res.redirect('/settings');
+                            } else {
+                                req.flash('error', 'Something went wrong while trying to update your email. Please try again later.');
+                                res.redirect('/settings');
+                            }
+                        })
+                    } else {
+                        req.flash('error', 'Wrong password');
+                        res.redirect('/users/change-email');
+                    }
+                })
+                .catch((err) => next(err))
         } else {
             let error = new Error();
             next(error);
@@ -247,50 +247,50 @@ exports.passwordChangeHandler = (req, res, next) => {
     let password = req.body.password;
     let confirmPassword = req.body.confirmPassword;
     let newPassword = req.body.newPassword;
-    
-    model.findOne({_id: id})
-    .then((user) => {
-        if(user && (confirmPassword === newPassword)) {
-            user.comparePassword(password)
-            .then((result) => {
-                if(result) {
-                    bcrypt.hash(newPassword, 10)
-                    .then((hash) => {
-                        model.findOneAndUpdate({_id: id}, {password: hash}, (err, user) => {
-                            if(err) { next(err); }
 
-                            if (user) {
-                                req.flash('success', "You've successfully changed your password!");
-                                let email = user.email;
-                                let about = "Your Password Has Been Changed";
-                                let content = "This is your confirmation email that you've changed your password.";
-                                sendEmail(email, about, content);
-                                res.redirect('/settings');
-                            } else {
-                                req.flash('error', 'There was an error attempting to update your password. Please try again later or contact us.');
-                                res.redirect('/')
-                            }
-                        })
+    model.findOne({ _id: id })
+        .then((user) => {
+            if (user && (confirmPassword === newPassword)) {
+                user.comparePassword(password)
+                    .then((result) => {
+                        if (result) {
+                            bcrypt.hash(newPassword, 10)
+                                .then((hash) => {
+                                    model.findOneAndUpdate({ _id: id }, { password: hash }, (err, user) => {
+                                        if (err) { next(err); }
+
+                                        if (user) {
+                                            req.flash('success', "You've successfully changed your password!");
+                                            let email = user.email;
+                                            let about = "Your Password Has Been Changed";
+                                            let content = "This is your confirmation email that you've changed your password.";
+                                            sendEmail(email, about, content);
+                                            res.redirect('/settings');
+                                        } else {
+                                            req.flash('error', 'There was an error attempting to update your password. Please try again later or contact us.');
+                                            res.redirect('/')
+                                        }
+                                    })
+                                })
+                                .catch(err => next(err))
+                        } else {
+                            req.flash('error', 'The password you entered does not match the current password for your account');
+                            res.redirect('/users/change-password');
+                        }
                     })
-                    .catch(err=>next(err))
-                } else {
-                    req.flash('error', 'The password you entered does not match the current password for your account');
-                    res.redirect('/users/change-password');
-                }
-            })
-            .catch(err=>next(err))
-        } else {
-            req.flash('error', 'New Password and Password Confirmation Not Matching');
-            res.redirect('/users/change-password');
-        }
-    })
-    .catch(err=>next(err))
+                    .catch(err => next(err))
+            } else {
+                req.flash('error', 'New Password and Password Confirmation Not Matching');
+                res.redirect('/users/change-password');
+            }
+        })
+        .catch(err => next(err))
 };
 
 //Handles logout request
 exports.logout = (req, res, next) => {
     req.session.destroy((err) => {
-        if(err) {
+        if (err) {
             return next(err);
         } else {
             res.redirect('/');
@@ -307,7 +307,7 @@ function sendEmail(email, title, content) {
     }
 
     transporter.sendMail(mailConfigs, (err, info) => {
-        if(err) {
+        if (err) {
             console.log(err.status + " " + err.message)
         }
 
@@ -315,3 +315,9 @@ function sendEmail(email, title, content) {
 
     return true;
 };
+
+
+
+
+
+
