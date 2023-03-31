@@ -1,4 +1,4 @@
-import {model} from '../models/user.js';
+//import {model} from '../models/user.js';
 
 exports.getData = (req, res, next) => {
     let email = req.body.username; //get email to find interests and dislikes from user
@@ -124,7 +124,8 @@ function displayEvents(data) {
         activityList.appendChild(li);
         activityList.appendChild(button);
         button.onclick = function(){
-            alert('You have registerd for this event' + obj["title"] + "!!!") ;return false;
+            alert('You have registerd for this event' + obj["title"] + "!!!");
+            return false;
         };
     }
 }
