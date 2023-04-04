@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-//import {model} from '../models/user.js';
-=======
 /*import {model} from '../models/user.js';
->>>>>>> 58513cf000f12b8ded78257301f5473b5f8d9a0c
 
 exports.getData = (req, res, next) => {
     let email = req.body.username; //get email to find interests and dislikes from user
@@ -115,26 +111,24 @@ function displayEvents(data) {
         let obj = events[i];
         let li = document.createElement("li");
         let a = document.createElement("a");
+        let buttonLink = document.createElement("a");
         let textNode = document.createTextNode(obj["title"]);
         //create Button for register
         let button = document.createElement("button");
-        button.innerText = "register for event";
+        button.setAttribute("type", "submit");
+        let queryStr = "/bookmarks-add?title=" + obj["title"] + "&link=" + obj["link"];
+        button.innerText = "Add to Bookmarks";
 
         a.appendChild(textNode);
         a.setAttribute("href", obj["link"]);
 
+        buttonLink.setAttribute("href", queryStr);
+        buttonLink.appendChild(button);
+
         li.appendChild(a);
+        li.appendChild(buttonLink);
 
         activityList.appendChild(li);
-        activityList.appendChild(button);
-<<<<<<< HEAD
-        button.onclick = function(){
-            alert('You have registerd for this event' + obj["title"] + "!!!");
-            return false;
-=======
-        button.onclick = function () {
-            alert('You have registerd for this event' + obj["title"] + "!!!"); return false;
->>>>>>> 58513cf000f12b8ded78257301f5473b5f8d9a0c
-        };
+
     }
 }
