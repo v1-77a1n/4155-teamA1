@@ -11,7 +11,13 @@
             </div>
             <div class="container d-flex justify-content-center align-items-center">
                 <ul id="bookmarks">
-                    <li>Bookmark item</li>
+                    <% if(user.bookmarks.length) {%>
+                        <%user.bookmarks.forEach(item => {%>
+                            <a href="<%= item["link"]%>"><li><%=item["title"]%></li></a>
+                        <%})%>
+                    <%} else {%>
+                        <p>You have no bookmarks to display.</p>
+                    <%}%>
                 </ul>
             </div>
         </div>
