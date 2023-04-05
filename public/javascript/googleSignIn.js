@@ -1,7 +1,6 @@
 const { OAuth2Client } = require('google-auth-library');
-const CLIENT_ID = "120559287708-d1rtk2bctan1t7jfke03sb8f52ei3u5f.apps.googleusercontent.com";
+const CLIENT_ID = '120559287708-d1rtk2bctan1t7jfke03sb8f52ei3u5f.apps.googleusercontent.com';
 const client = new OAuth2Client(CLIENT_ID);
-
 async function verify() {
     const ticket = await client.verifyIdToken({
         idToken: token,
@@ -14,6 +13,7 @@ async function verify() {
     // If request specified a G Suite domain:
     // const domain = payload['hd'];
 }
-
-
 verify().catch(console.error);
+
+module.exports = { verify };
+
