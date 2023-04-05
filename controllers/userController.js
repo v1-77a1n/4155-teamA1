@@ -57,6 +57,7 @@ exports.loggingIn = (req, res, next) => {
     let email = req.body.username;
     let password = req.body.password;
     let token = req.body.credential;
+    console.log(req.body);
     console.log(token);
     // Google Authorization ----------------------------------------------------------
 
