@@ -1,7 +1,4 @@
 /* ITSC-4155-GroupA */
-/*body {
-    background-image: url("/images/background-design.png") !important;
-}*/
 
 h1 {
     color: black;
@@ -33,15 +30,6 @@ h2 {
     max-width: 100%;
 }
 
-/*li {
-    color: rgb(87, 87, 87);
-    text-align: left;
-    line-height: 30px;
-    letter-spacing: 2px;
-    font-family: arial;
-    column-gap: 60px;
-}*/
-
 label {
     color: black;
     text-align: left;
@@ -59,30 +47,6 @@ p {
     font-family: arial;
     column-gap: 60px;
 }
-
-/*nav ul {
-    white-space: nowrap;
-    font-family: arial;
-    max-width: 1200px;
-    margin: 0 auto;
-
-}
-
-nav li {
-    width: 25%;
-    display: inline-block;
-    font-size: 24px;
-
-}
-
-nav li a {
-    text-decoration: none;
-    color: #4b4b4b;
-}
-
-nav li a.join {
-    color: #f63232
-}*/
 
 .topnav {
     padding-top: 2%;
@@ -165,6 +129,15 @@ small {
     width: auto;
     text-align: center;
     height: 30px;
+}
+
+#preloader {
+    background: #fff url(/images/loader.gif) no-repeat center center;
+    background-size: 5%;
+    height: 70vh;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
 }
 
 /* Resizing for smaller devices */

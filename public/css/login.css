@@ -1,9 +1,4 @@
 /* ITSC-4155-GroupA */
-/* Change */
-/*body {
-    background-image: url("/images/background-design.png") !important;
-}*/
-
 nav a {
     color: #fff !important;
 }
@@ -54,6 +49,15 @@ small {
     width: auto;
     text-align: center;
     height: 30px;
+}
+
+#preloader {
+    background: #fff url(/images/loader.gif) no-repeat center center;
+    background-size: 5%;
+    height: 70vh;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
 }
 
 /* Resizing for smaller devices */
