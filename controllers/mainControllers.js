@@ -13,17 +13,17 @@ exports.addToBookmarks = (req, res, next) => {
     let title = req.query.title;
     let link = req.query.link;
     console.log(title + " " + link);
-    let item = {title, link};
+    let item = { title, link };
     let id = req.session.user;
 
-    model.findOne({_id: id}, (err, user) => {
-        if(err) {next(err)}
+    model.findOne({ _id: id }, (err, user) => {
+        if (err) { next(err) }
 
-        if(user) {
-            model.findOneAndUpdate({_id: id}, {$push: {bookmarks: item}}, (err, user) => {
-                if (err) {next(err)}
+        if (user) {
+            model.findOneAndUpdate({ _id: id }, { $push: { bookmarks: item } }, (err, user) => {
+                if (err) { next(err) }
 
-                if(user) {
+                if (user) {
                     req.flash('success', 'The event has been added to your bookmarks');
                     res.redirect('/bookmarks');
                 } else {
@@ -41,7 +41,18 @@ exports.addToBookmarks = (req, res, next) => {
 exports.bookmarks = (req, res) => {
     let id = req.session.user;
     model.findOne({ _id: id }, (err, user) => {
-        res.render('bookmarks', {user});
-    });    
+        res.render('bookmarks', { user });
+    });
 };
 
+exports.about = (req, res) => {
+    res.render('about');
+};
+
+exports.contact = (req, res) => {
+    res.render('contact');
+};
+
+exports.terms = (req, res) => {
+    res.render('terms');
+}

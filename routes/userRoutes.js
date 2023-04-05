@@ -36,7 +36,6 @@ router.get('/change-password', isLoggedIn, controller.changePassword);
 router.post('/change-email', isLoggedIn, controller.emailChangeHandler);
 router.post('/change-password', isLoggedIn, controller.passwordChangeHandler);
 
-
 //Handles logging out
 router.get('/logout', isLoggedIn, controller.logout);
 module.exports = router;
