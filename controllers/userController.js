@@ -56,8 +56,8 @@ exports.login = (req, res) => {
 exports.loggingIn = (req, res, next) => {
     let email = req.body.username;
     let password = req.body.password;
-    let token = req.body.credential;
-    console.log(req.body);
+    //let token = req.body.credential;
+    /*console.log(req.body);
     console.log(token);
     // Google Authorization ----------------------------------------------------------
 
@@ -77,7 +77,7 @@ exports.loggingIn = (req, res, next) => {
     }
     verify().catch(console.error);
     // ------------------------------------------------------------------------------------
-    console.log(verify());
+    console.log(verify());*/
     model.findOne({ email: email }, (err, user) => {
         if (err) { next(err); }
 
@@ -98,7 +98,7 @@ exports.loggingIn = (req, res, next) => {
             res.redirect('/users/login');
         }
     })
-    verify();
+    //verify();
 }
 
 //renders passwords change req link page
