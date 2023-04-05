@@ -3,6 +3,8 @@ const rToken = require('../models/resetToken');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { OAuth2Client } = require('google-auth-library');
 
 //transporter for emailing
 const transporter = nodemailer.createTransport({
@@ -54,7 +56,27 @@ exports.login = (req, res) => {
 exports.loggingIn = (req, res, next) => {
     let email = req.body.username;
     let password = req.body.password;
+    let token = req.body.credential;
+    console.log(token);
+    // Google Authorization ----------------------------------------------------------
 
+    const CLIENT_ID = '120559287708-d1rtk2bctan1t7jfke03sb8f52ei3u5f.apps.googleusercontent.com';
+    const client = new OAuth2Client(CLIENT_ID);
+    async function verify() {
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
+            // Or, if multiple clients access the backend:
+            //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+        });
+        const payload = ticket.getPayload();
+        const userid = payload['sub'];
+        // If request specified a G Suite domain:
+        // const domain = payload['hd'];
+    }
+    verify().catch(console.error);
+    // ------------------------------------------------------------------------------------
+    console.log(verify());
     model.findOne({ email: email }, (err, user) => {
         if (err) { next(err); }
 
@@ -75,6 +97,7 @@ exports.loggingIn = (req, res, next) => {
             res.redirect('/users/login');
         }
     })
+    verify();
 }
 
 //renders passwords change req link page
