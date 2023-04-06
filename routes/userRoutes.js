@@ -36,6 +36,15 @@ router.get('/change-password', isLoggedIn, controller.changePassword);
 router.post('/change-email', isLoggedIn, controller.emailChangeHandler);
 router.post('/change-password', isLoggedIn, controller.passwordChangeHandler);
 
+//Routing for profile page
+router.get('/profile', isLoggedIn, controller.profile);
+
+//Routing for friends page
+router.get('/friends', isLoggedIn, controller.friends);
+
+//Routing for messages page
+router.get('/messages', isLoggedIn, controller.messages);
+
 //Handles logging out
 router.get('/logout', isLoggedIn, controller.logout);
 module.exports = router;

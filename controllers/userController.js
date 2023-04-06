@@ -317,8 +317,18 @@ function sendEmail(email, title, content) {
     return true;
 };
 
+// Gets profile page
+exports.profile = (req, res) => {
+    res.render('./user/profile');
+};
 
+// Gets freinds page
+exports.friends = (req, res) => {
+    res.render('./user/friends');
+};
 
-
-
+// Gets messages page
+exports.messages = (req, res) => {
+    res.render('./user/messages');
+};
 

@@ -54,7 +54,7 @@ small {
 #preloader {
     background: #fff url(/images/loader.gif) no-repeat center center;
     background-size: 5%;
-    height: 70vh;
+    height: 80vh;
     width: 100%;
     position: fixed;
     z-index: 100;
