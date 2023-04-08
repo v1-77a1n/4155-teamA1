@@ -1,5 +1,6 @@
 const model = require('../models/user');
 const rToken = require('../models/resetToken');
+const message = require('../models/message');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
