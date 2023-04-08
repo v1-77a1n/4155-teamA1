@@ -10,7 +10,9 @@ const userSchema = new Schema({
     password: {type: String, required: [true, 'cannot be empty'], min: 8, max: 64},
     bookmarks: {type: Array},
     interests: {type: Array},
-    dislikes: {type: Array}
+    dislikes: {type: Array},
+    friends: {type: Array}, //This is an array of user ObjectIds
+    inbox: {type: Array} //This is an array of message ObjectIds
 });
 
 userSchema.pre('save', function(next) {
