@@ -140,6 +140,23 @@ small {
     z-index: 100;
 }
 
+/* Clock Body */
+
+body {
+    background: slategray;
+}
+
+.clock {
+    font-size: 50px;
+    letter-spacing: 5px;
+    color: #fff;
+    top: 20%;
+    left: 50%;
+    font-family: arial;
+    text-align: center;
+
+}
+
 /* Resizing for smaller devices */
 @media screen and (min-width: 360px) and (max-width: 390px) {
     footer {
