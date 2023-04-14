@@ -11,8 +11,16 @@
                     </div>
                     <div class="col-md-8">
                         <h1><%=user.firstName%> <%=user.lastName%></h1>
-                        <p>Enter bio here</p>
-                    </div>
+                            <h3>Here are the events you've bookmarked: </h3>
+                            <ul id="bookmarks">
+                                <% if(user.bookmarks.length) {%>
+                                    <%user.bookmarks.forEach(item => {%>
+                                        <a href="<%= item["link"]%>"><li><%=item["title"]%></li></a>
+                                    <%})%>
+                                <%} else {%>
+                                    <p>You have no bookmarks to display.</p>
+                                <%}%>
+                            </ul>
                 </div>
             </div>
         </div>
