@@ -54,13 +54,6 @@ exports.addToBookmarks = (req, res, next) => {
     })
 }
 
-exports.bookmarks = (req, res) => {
-    let id = req.session.user;
-    model.findOne({ _id: id }, (err, user) => {
-        res.render('bookmarks', { user });
-    });
-};
-
 exports.about = (req, res) => {
     res.render('about');
 };
