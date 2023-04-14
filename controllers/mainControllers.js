@@ -2,8 +2,24 @@
 const model = require('../models/user');
 
 exports.home = (req, res) => {
-    res.render('index');
+    let interestVal = "";
+    res.render('index', { interestVal });
 };
+
+exports.saveInterestToDb = (req, res, next) => {
+    let userInterests = req.body.interest;
+    console.log(userInterests);
+    let id = req.session.user;
+    model.findOneAndUpdate({_id: id}, {$push: {interests: userInterests}})
+    .then((user) => {
+        req.flash('success', "You've saved your interests!");
+        res.redirect('/');
+    })
+    .catch((err) => {
+        req.flash('error', 'There was an issue saving your interest.');
+        res.redirect('/');
+    })
+}
 
 exports.settings = (req, res) => {
     res.render('settings');
