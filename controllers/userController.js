@@ -320,7 +320,11 @@ function sendEmail(email, title, content) {
 
 // Gets profile page
 exports.profile = (req, res) => {
-    res.render('./user/profile');
+    let id = req.session.user;
+    model.findOne({ _id: id }, (err, user) => {
+        res.render('./user/profile', { user });
+    });
+
 };
 
 // Gets freinds page

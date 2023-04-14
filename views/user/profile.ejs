@@ -10,10 +10,17 @@
                         <img src="https://via.placeholder.com/150" class="img-thumbnail">
                     </div>
                     <div class="col-md-8">
-                        <h1>Profile Name</h1>
-                        <p>Bio Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            ut labore et dolore magna aliqua.</p>
-                    </div>
+                        <h1><%=user.firstName%> <%=user.lastName%></h1>
+                            <h3>Here are the events you've bookmarked: </h3>
+                            <ul id="bookmarks">
+                                <% if(user.bookmarks.length) {%>
+                                    <%user.bookmarks.forEach(item => {%>
+                                        <a href="<%= item["link"]%>"><li><%=item["title"]%></li></a>
+                                    <%})%>
+                                <%} else {%>
+                                    <p>You have no bookmarks to display.</p>
+                                <%}%>
+                            </ul>
                 </div>
             </div>
         </div>
