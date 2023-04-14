@@ -9,8 +9,13 @@
                 <h3 id="interest_header">You are interested in: </h3>
             </div>
             <div class="container d-flex justify-content-center align-items-center" id="addInterest">
-                <input type="text" id="interestField">
-                <input type="button" id="addInterest" name="addInterest" value="Add Interest">
+                <form action="/" method="POST">
+                    <input type="text" name="interest" id="interest">
+                        <input type="button" id="addInterest" name="addInterest" value="Add Interest">
+                    <% if(user) { %> 
+                        <input type="submit" id="saveInterest" name="saveInterest" value="Save Interest">
+                    <%}%>
+                </form>
             </div>
 
             <div class="container d-flex justify-content-center align-items-center">
