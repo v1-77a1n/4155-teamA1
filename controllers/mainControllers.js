@@ -1,9 +1,21 @@
 
 const model = require('../models/user');
 
-exports.home = (req, res) => {
+exports.home = (req, res, next) => {
+    let id = req.session.user;
     let interestVal = "";
-    res.render('index', { interestVal });
+    if(id == null) {
+        res.render('index', { interestVal });
+    } else {
+        model.findOne({_id: id})
+        .then((user) => {
+            interestVal = JSON.stringify(user.interests);
+            res.render('index', { interestVal });
+        })
+        .catch((err) => {
+            next(err);
+        })
+    }
 };
 
 exports.saveInterestToDb = (req, res, next) => {
