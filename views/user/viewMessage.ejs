@@ -1,0 +1,11 @@
+<%- include('../partials/header.ejs')%>
+    <title>Send a Message</title>
+    <link type="text/css" rel="stylesheet" href="/css/login.css">
+    <%- include('../partials/header-end.ejs')%>
+        <div id="preloader"></div>
+        <div class="content">
+            <p><b>Sender: <%= message.sender %></b></p><br>
+            <p><b>Subject: <%= message.subject %></b></p><br>
+            <p class="messageBody"> <%= message.msg %></p>
+        </div>
+        <%- include('../partials/footer.ejs')%>
