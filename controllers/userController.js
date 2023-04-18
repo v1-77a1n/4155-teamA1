@@ -334,6 +334,64 @@ exports.friends = (req, res) => {
 
 // Gets messages page
 exports.messages = (req, res) => {
-    res.render('./user/messages');
+    let id = req.session.user;
+    model.findOne({_id: id}).populate('inbox')
+    .then((user) => {
+        let inboxArr = user.inbox;
+        res.render('./user/messages', { inboxArr });
+    })
+    .catch((err)=>next(err));
 };
 
+//get individual message page
+exports.messages = (req, res, next) => {
+    let messageId = req.query.message;
+    model.findOne({_id: messageId})
+    .then((message) => {
+        res.render('./users/viewMessage', {message});
+    })
+    .catch((err)=>{next(err)});
+}
+//Gets page to send message
+exports.sendMessagePage = (req, res) => {
+    let email = req.query.friend;
+    model.findOne({email: email})
+    .then((user) => {
+        let fullName = user.firstName + " " + user.lastName;
+        res.render('./user/sendMessage', {recip: fullName});
+    })
+    .catch((err) => {
+        next(err);
+    })
+}
+
+//Sends message - POST req
+exports.sendMessage = (req, res, next) => {
+    let fullName = req.query.friend.split(" ");
+    let userId = req.session.user;
+    let msgSubject = req.body.subject;
+    let msgText = req.body.text;
+
+    //find user
+    model.findOne({_id: userId})
+    .then((user) => {
+        //find friend
+        model.findOne({firstName: fullName["0"], lastNmae: fullName["1"]})
+        .then((friend) => {
+            let friendId = friend._id;
+            //if user's friends list includes friend's ID
+            if(user.friends.includes(friendId)) {
+                let newMessage = new message({sender: userId, recipient: friendId, subject: msgSubject, msg: msgText });
+                //save message and then push the message's _id to the friend's inbox
+                newMessage.save()
+                .then((message) => {
+                    let messageId = message._id;
+                    model.findOneAndUpdate({_id: friendId}, {$push: {inbox: messageId}})
+                })
+                .catch((err) => {next(err);})
+            }
+        })
+        .catch((err) => {next(err);})
+    })
+    .catch((err)=>{next(err);})
+}
