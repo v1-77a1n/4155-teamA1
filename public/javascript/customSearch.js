@@ -107,7 +107,7 @@ function displayEvents(data) {
     let activityList = document.getElementById('activityList');
     let events = data.items;
 
-    if(events == null || events == "") {
+    if(events == null || events.length == 0) {
         let li = document.createElement("li");
         let textNode = document.createTextNode("There are no events that matches your interests criteria.");
         li.appendChild(textNode);
