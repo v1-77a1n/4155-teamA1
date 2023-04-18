@@ -42,8 +42,17 @@ router.get('/profile', isLoggedIn, controller.profile);
 //Routing for friends page
 router.get('/friends', isLoggedIn, controller.friends);
 
+//Get send message page
+router.get('/send_message', isLoggedIn, controller.sendMessagePage);
+
+//POST send message
+router.get('/send_message', isLoggedIn, controller.sendMessage);
+
 //Routing for messages page
 router.get('/messages', isLoggedIn, controller.messages);
+
+//GET individual emssage
+router.get('/view_message', isLoggedIn, controller.viewMessage);
 
 //Handles logging out
 router.get('/logout', isLoggedIn, controller.logout);
