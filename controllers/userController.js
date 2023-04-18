@@ -372,7 +372,7 @@ exports.sendMessage = (req, res, next) => {
     let msgSubject = req.body.subject;
     let msgText = req.body.text;
 
-    //find user
+    //finds logged in user
     model.findOne({_id: userId})
     .then((user) => {
         //find friend
