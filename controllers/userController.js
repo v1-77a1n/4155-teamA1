@@ -344,8 +344,8 @@ exports.messages = (req, res) => {
     .catch((err)=>next(err));
 };
 
-//get individual message page
-exports.messages = (req, res, next) => {
+//get individual message page - still needs testing
+exports.viewMessage = (req, res, next) => {
     let messageId = req.query.message;
     message.findOne({_id: messageId})
     .then((message) => {
