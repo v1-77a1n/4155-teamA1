@@ -1,0 +1,15 @@
+<%- include('../partials/header.ejs')%>
+    <title>Send a Message</title>
+    <link type="text/css" rel="stylesheet" href="/css/login.css">
+    <%- include('../partials/header-end.ejs')%>
+        <div id="preloader"></div>
+        <div class="content">
+            <form action="/users/send_message" method="POST">
+                <label for="friend">Recipient: </label><input type="text" value="<%= recip %>" id="friend" name="friend" disabled><br>
+                <label for="subject">Subject: </label><input type="text" value="" id="subject" name="subject" required><br>
+                <label for="text">Message: </label><br>
+                <input type="textbox" value="" id="text" name="text" min="10" required><br>
+                <input type="button" value="Send Message" id="sendMessage">
+            </form>
+        </div>
+        <%- include('../partials/footer.ejs')%>
