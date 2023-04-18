@@ -338,6 +338,7 @@ exports.messages = (req, res) => {
     model.findOne({_id: id}).populate('inbox')
     .then((user) => {
         let inboxArr = user.inbox;
+        console.log(inboxArr); //delete this line after testing
         res.render('./user/messages', { inboxArr });
     })
     .catch((err)=>next(err));
@@ -346,7 +347,7 @@ exports.messages = (req, res) => {
 //get individual message page
 exports.messages = (req, res, next) => {
     let messageId = req.query.message;
-    model.findOne({_id: messageId})
+    message.findOne({_id: messageId})
     .then((message) => {
         res.render('./users/viewMessage', {message});
     })
