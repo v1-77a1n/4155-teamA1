@@ -107,28 +107,35 @@ function displayEvents(data) {
     let activityList = document.getElementById('activityList');
     let events = data.items;
 
-    for (let i = 0; i < events.length; i++) {
-        let obj = events[i];
+    if(events == null || events == "") {
         let li = document.createElement("li");
-        let a = document.createElement("a");
-        let buttonLink = document.createElement("a");
-        let textNode = document.createTextNode(obj["title"]);
-        //create Button for register
-        let button = document.createElement("button");
-        button.setAttribute("type", "submit");
-        let queryStr = "/bookmarks-add?title=" + obj["title"] + "&link=" + obj["link"];
-        button.innerText = "Add to Bookmarks";
-
-        a.appendChild(textNode);
-        a.setAttribute("href", obj["link"]);
-
-        buttonLink.setAttribute("href", queryStr);
-        buttonLink.appendChild(button);
-
-        li.appendChild(a);
-        li.appendChild(buttonLink);
-
+        let textNode = document.createTextNode("There are no events that matches your interests criteria.");
+        li.appendChild(textNode);
         activityList.appendChild(li);
-
+    } else {
+        for (let i = 0; i < events.length; i++) {
+            let obj = events[i];
+            let li = document.createElement("li");
+            let a = document.createElement("a");
+            let buttonLink = document.createElement("a");
+            let textNode = document.createTextNode(obj["title"]);
+            //create Button for register
+            let button = document.createElement("button");
+            button.setAttribute("type", "submit");
+            let queryStr = "/bookmarks-add?title=" + obj["title"] + "&link=" + obj["link"];
+            button.innerText = "Add to Bookmarks";
+    
+            a.appendChild(textNode);
+            a.setAttribute("href", obj["link"]);
+    
+            buttonLink.setAttribute("href", queryStr);
+            buttonLink.appendChild(button);
+    
+            li.appendChild(a);
+            li.appendChild(buttonLink);
+    
+            activityList.appendChild(li);
+    
+        }
     }
 }
