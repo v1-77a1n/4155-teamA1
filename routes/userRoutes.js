@@ -45,8 +45,11 @@ router.get('/friends', isLoggedIn, controller.friends);
 //Get send message page
 router.get('/send_message', isLoggedIn, controller.sendMessagePage);
 
-//POST send message
+//POST for sending and replying to a message
 router.get('/send_message', isLoggedIn, controller.sendMessage);
+
+//GET reply message page
+router.get('/reply_message', isLoggedIn, controller.reply);
 
 //Routing for messages page
 router.get('/messages', isLoggedIn, controller.messages);
@@ -56,4 +59,5 @@ router.get('/view_message', isLoggedIn, controller.viewMessage);
 
 //Handles logging out
 router.get('/logout', isLoggedIn, controller.logout);
+
 module.exports = router;
