@@ -47,6 +47,7 @@ app.use((req, res, next) => {
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
+app.use(methodOverride('_method'));
 
 //set up routes
 app.use('/', mainRoutes);
