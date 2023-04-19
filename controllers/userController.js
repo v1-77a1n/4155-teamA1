@@ -388,6 +388,11 @@ exports.sendMessage = (req, res, next) => {
                 .then((message) => {
                     let messageId = message._id;
                     model.findOneAndUpdate({_id: friendId}, {$push: {inbox: messageId}})
+                    .then(()=>{
+                        req.flash('success', 'Your message has been sent!');
+                        res.redirect('/users/profile');
+                    })
+                    .catch((err) => next(err))
                 })
                 .catch((err) => {next(err);})
             }
@@ -395,4 +400,23 @@ exports.sendMessage = (req, res, next) => {
         .catch((err) => {next(err);})
     })
     .catch((err)=>{next(err);})
+}
+
+//GET reply page
+exports.reply = (req, res, next) => {
+    let edit = req.query.edit;
+    let messageId = req.query.id;
+    let id = req.session.user;
+
+    if(messageId != null && edit) {
+        message.findOne({_id: messageId, recipient: id}).populate('sender')
+        .then((message) => {
+            let fullName = message.sender.firstName + " " + message.sender.lastName;
+            res.render('./user/replyMessage', { recip: fullName, message });
+        })
+        .catch((err)=>next(err))
+    } else {
+        req.flash('error', 'There was an error while attempting to retrieve the page.');
+        res.redirect('/users/messages')
+    }
 }
