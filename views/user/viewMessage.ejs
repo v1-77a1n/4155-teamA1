@@ -7,5 +7,6 @@
             <p><b>Sender: <%= message.sender %></b></p><br>
             <p><b>Subject: <%= message.subject %></b></p><br>
             <p class="messageBody"> <%= message.msg %></p>
+            <input type="button" formaction="/reply_message?id=<%= message._id %>&edit=true" formaction="GET"> <input type="button" formaction="/view_message?id=<%= message._id %>_method=DELETE" formmethod="POST">
         </div>
         <%- include('../partials/footer.ejs')%>
