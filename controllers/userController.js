@@ -368,7 +368,7 @@ exports.sendMessagePage = (req, res) => {
 
 //Sends message - POST req
 exports.sendMessage = (req, res, next) => {
-    let fullName = req.query.friend.split(" ");
+    let fullName = req.body.friend.split(" ");
     let userId = req.session.user;
     let msgSubject = req.body.subject;
     let msgText = req.body.text;
