@@ -60,6 +60,9 @@ router.get('/messages', isLoggedIn, controller.messages);
 //GET individual emssage
 router.get('/view_message', isLoggedIn, controller.viewMessage);
 
+//DELETE
+router.get('/delete_message', isLoggedIn, controller.deleteMessage);
+
 //Handles logging out
 router.get('/logout', isLoggedIn, controller.logout);
 
