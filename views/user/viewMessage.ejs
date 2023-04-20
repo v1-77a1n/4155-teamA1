@@ -4,9 +4,9 @@
     <%- include('../partials/header-end.ejs')%>
         <div id="preloader"></div>
         <div class="content">
-            <p><b>Sender: <%= message.sender %></b></p><br>
+            <p><b>Sender: <%= message.sender.firstName %> <%= message.sender.lastName%></b></p><br>
             <p><b>Subject: <%= message.subject %></b></p><br>
             <p class="messageBody"> <%= message.msg %></p>
-            <input type="button" formaction="/reply_message?id=<%= message._id %>&edit=true" formaction="GET"> <input type="button" formaction="/view_message?id=<%= message._id %>_method=DELETE" formmethod="POST">
+            <input type="button" formaction="/reply_message?id=<%= message._id %>&edit=true" formaction="GET" value="Reply"> <input type="button" formaction="/view_message?id=<%= message._id %>_method=DELETE" formmethod="POST" value="Delete">
         </div>
         <%- include('../partials/footer.ejs')%>
