@@ -4,11 +4,32 @@
     <%- include('../partials/header-end.ejs')%>
         <div id="preloader"></div>
         <div class="content">
-            <p><b>Sender: </b><%= message.sender.firstName %> <%= message.sender.lastName %></p><br>
-            <p><b>Subject: </b><%= message.subject %></b></p><br>
-            <p class="messageBody"> <%= message.msg %></p>
-            <form>
-                <a href="/users/reply_message?id=<%=message._id%>&edit=true"><input type="button" id="replyBtn" value="Reply"></a> <a href="/users/delete_message?id=<%= message._id %>"><input type="button" id="deleteBtn" value="Delete"></a>
-            </form>
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Message from <%= message.sender.firstName %>
+                                        <%= message.sender.lastName %>
+                                </h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Subject: <%= message.subject %>
+                                </h6>
+                                <p class="card-text">
+                                    <%= message.msg %>
+                                </p>
+                                <div class="btn-group" role="group">
+                                    <a href="/users/reply_message?id=<%=message._id%>&edit=true"><button type="button"
+                                            class="btn btn-primary">Reply</button></a>
+                                    <div class="ms-2">
+                                        <a href="/users/delete_message?id=<%= message._id %>"><button type="button"
+                                                class="btn btn-danger">Delete</button></a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <%- include('../partials/footer.ejs')%>

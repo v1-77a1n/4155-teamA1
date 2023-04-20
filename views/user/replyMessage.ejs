@@ -4,12 +4,28 @@
     <%- include('../partials/header-end.ejs')%>
         <div id="preloader"></div>
         <div class="content">
-            <form action="/users/send_message" method="POST">
-                <label for="friend">Recipient: </label><input type="text" value="<%= recip %>" id="friend" name="friend" readonly><br>
-                <label for="subject">Subject: </label><input type="text" value="RE: <%= message.subject %>" id="subject" name="subject" readonly><br>
-                <label for="text">Message: </label><br>
-                <input type="textbox" value="" id="text" name="text" min="10" required><br>
-                <input type="submit" value="Send Message" id="sendMessage">
-            </form>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <form action="/users/send_message" method="POST">
+                            <div class="form-group">
+                                <label for="friend">Recipient:</label>
+                                <input type="text" class="form-control" value="<%= recip %>" id="friend" name="friend"
+                                    readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject:</label>
+                                <input type="text" class="form-control" value="RE: <%= message.subject %>" id="subject"
+                                    name="subject" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="text">Message:</label>
+                                <textarea class="form-control" id="text" name="text" rows="6" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
         <%- include('../partials/footer.ejs')%>

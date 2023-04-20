@@ -4,22 +4,36 @@
     <%- include('../partials/header-end.ejs')%>
         <div id="preloader"></div>
         <div class="content">
-            <p><b>Messages will be automatically deleted after 30 days</b></p><br>
-            <%if(inboxArr.length == 0 || inboxArr == null) {%>
-                <p>You have no messages.</p>
-            <%} else {%>
-                <table id="messages">
-                    <tr>
-                        <th>Date</th>
-                        <th>Message</th>
-                    </tr>
-                    <%inboxArr.forEach((message) => {%>
-                        <tr>
-                            <td><%=message.createdAt%></td>
-                            <td><a href="/users/view_message?message=<%=message._id%>"><%=message.subject%></a></td>
-                        </tr>
-                    <%})%>
-                </table> 
-            <%}%>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="mb-3"><strong>Messages will be automatically deleted after 30 days</strong></p>
+                        <% if (inboxArr.length==0 || inboxArr==null) { %>
+                            <p>You have no messages.</p>
+                            <% } else { %>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Message</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% inboxArr.forEach((message)=> { %>
+                                            <tr>
+                                                <td>
+                                                    <%= message.createdAt %>
+                                                </td>
+                                                <td><a href="/users/view_message?message=<%= message._id %>">
+                                                        <%= message.subject %>
+                                                    </a></td>
+                                            </tr>
+                                            <% }) %>
+                                    </tbody>
+                                </table>
+                                <% } %>
+                    </div>
+                </div>
+            </div>
         </div>
         <%- include('../partials/footer.ejs')%>
