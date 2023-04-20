@@ -327,43 +327,38 @@ exports.profile = (req, res) => {
 
 };
 
-// Gets freinds page
-exports.friends = (req, res) => {
-    res.render('./user/friends');
-};
-
 // Gets messages page
 exports.messages = (req, res) => {
     let id = req.session.user;
-    model.findOne({_id: id}).populate('inbox')
-    .then((user) => {
-        let inboxArr = user.inbox;
-        console.log(inboxArr); //delete this line after testing
-        res.render('./user/messages', { inboxArr });
-    })
-    .catch((err)=>next(err));
+    model.findOne({ _id: id }).populate('inbox')
+        .then((user) => {
+            let inboxArr = user.inbox;
+            console.log(inboxArr); //delete this line after testing
+            res.render('./user/messages', { inboxArr });
+        })
+        .catch((err) => next(err));
 };
 
 //get individual message page - still needs testing
 exports.viewMessage = (req, res, next) => {
     let messageId = req.query.message;
-    message.findOne({_id: messageId})
-    .then((message) => {
-        res.render('./users/viewMessage', {message});
-    })
-    .catch((err)=>{next(err)});
+    message.findOne({ _id: messageId })
+        .then((message) => {
+            res.render('./users/viewMessage', { message });
+        })
+        .catch((err) => { next(err) });
 }
 //Gets page to send message
 exports.sendMessagePage = (req, res) => {
     let email = req.query.friend;
-    model.findOne({email: email})
-    .then((user) => {
-        let fullName = user.firstName + " " + user.lastName;
-        res.render('./user/sendMessage', {recip: fullName});
-    })
-    .catch((err) => {
-        next(err);
-    })
+    model.findOne({ email: email })
+        .then((user) => {
+            let fullName = user.firstName + " " + user.lastName;
+            res.render('./user/sendMessage', { recip: fullName });
+        })
+        .catch((err) => {
+            next(err);
+        });
 }
 
 //Sends message - POST req
@@ -374,49 +369,68 @@ exports.sendMessage = (req, res, next) => {
     let msgText = req.body.text;
 
     //finds logged in user
-    model.findOne({_id: userId})
-    .then((user) => {
-        //find friend
-        model.findOne({firstName: fullName["0"], lastNmae: fullName["1"]})
-        .then((friend) => {
-            let friendId = friend._id;
-            //if user's friends list includes friend's ID
-            if(user.friends.includes(friendId)) {
-                let newMessage = new message({sender: userId, recipient: friendId, subject: msgSubject, msg: msgText });
-                //save message and then push the message's _id to the friend's inbox
-                newMessage.save()
-                .then((message) => {
-                    let messageId = message._id;
-                    model.findOneAndUpdate({_id: friendId}, {$push: {inbox: messageId}})
-                    .then(()=>{
-                        req.flash('success', 'Your message has been sent!');
-                        res.redirect('/users/profile');
-                    })
-                    .catch((err) => next(err))
+    model.findOne({ _id: userId })
+        .then((user) => {
+            //find friend
+            model.findOne({ firstName: fullName[0], lastName: fullName[1] })
+                .then((friend) => {
+                    let friendId = friend._id;
+                    //if user's friends list includes friend's ID
+                    if (user.friends.includes(friendId)) {
+                        let newMessage = new message({ sender: userId, recipient: friendId, subject: msgSubject, msg: msgText });
+                        //save message and then push the message's _id to the friend's inbox
+                        newMessage.save()
+                            .then((message) => {
+                                let messageId = message._id;
+                                model.findOneAndUpdate({ _id: friendId }, { $push: { inbox: messageId } })
+                            })
+                            .catch((err) => { next(err); });
+                    }
                 })
-                .catch((err) => {next(err);})
-            }
+                .catch((err) => { next(err); });
         })
-        .catch((err) => {next(err);})
-    })
-    .catch((err)=>{next(err);})
-}
+        .catch((err) => { next(err); });
+};
 
-//GET reply page
-exports.reply = (req, res, next) => {
-    let edit = req.query.edit;
-    let messageId = req.query.id;
+// Gets friends page - GET
+exports.friends = (req, res) => {
     let id = req.session.user;
-
-    if(messageId != null && edit) {
-        message.findOne({_id: messageId, recipient: id}).populate('sender')
-        .then((message) => {
-            let fullName = message.sender.firstName + " " + message.sender.lastName;
-            res.render('./user/replyMessage', { recip: fullName, message });
+    model.findOne({ _id: id }).populate('friends')
+        .then((user) => {
+            let friendArr = user.friends;
+            console.log(friendArr); //delete this line after testing
+            res.render('./user/friends', { friendArr });
         })
-        .catch((err)=>next(err))
-    } else {
-        req.flash('error', 'There was an error while attempting to retrieve the page.');
-        res.redirect('/users/messages')
-    }
-}
+        .catch((err) => next(err));
+};
+
+// Adding a friend to current users account - POST
+exports.addFriend = (req, res, next) => {
+    let userId = req.session.user;
+    let friendEmail = req.body.email;
+
+    // finds user
+    model.findOne({ _id: userId })
+        .then((user) => {
+            // find friend
+            model.findOne({ email: friendEmail })
+                .then((friend) => {
+                    let friendId = friend._id;
+                    // if user's friend list does not include friend's ID
+                    if (!user.friends.includes(friendId)) {
+                        // push friend's id to array of user ObjectsIds in friends input in userSchema
+                        user.friends.push(friendId);
+                        // save the changes to the user object
+                        user.save()
+                            .then(() => {
+                                req.flash('success', 'Friend added successfully');
+                            })
+                            .catch((err) => { next(err); });
+                    } else {
+                        req.flash('error', 'Friend already added');
+                    }
+                })
+                .catch((err) => { next(err); });
+        })
+        .catch((err) => { next(err); });
+};

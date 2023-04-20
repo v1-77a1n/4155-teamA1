@@ -42,6 +42,9 @@ router.get('/profile', isLoggedIn, controller.profile);
 //Routing for friends page
 router.get('/friends', isLoggedIn, controller.friends);
 
+// POST add friend
+router.post('/friends', isLoggedIn, controller.addFriend);
+
 //Get send message page
 router.get('/send_message', isLoggedIn, controller.sendMessagePage);
 
@@ -49,7 +52,7 @@ router.get('/send_message', isLoggedIn, controller.sendMessagePage);
 router.get('/send_message', isLoggedIn, controller.sendMessage);
 
 //GET reply message page
-router.get('/reply_message', isLoggedIn, controller.reply);
+//router.get('/reply_message', isLoggedIn, controller.reply);
 
 //Routing for messages page
 router.get('/messages', isLoggedIn, controller.messages);

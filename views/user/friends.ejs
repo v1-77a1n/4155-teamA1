@@ -9,18 +9,23 @@
                 <div class="row">
                     <div class="col-md-6">
                         <h3>My Friends</h3>
-                        <div id="friends-list"></div>
+                        <div id="friends-list">
+                            <ul>
+                                <% friendArr.forEach((friend)=> {%>
+                                    <li>
+                                        <%= friend.firstName %>
+                                            <%= friend.lastName %> (<%=friend.email%>)
+                                    </li>
+                                    <% }); %>
+                            </ul>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <h3>Add a Friend</h3>
-                        <form id="add-friend-form">
+                        <form id="add-friend-form" action="/users/friends" method="POST">
                             <div class="form-group">
                                 <label for="name">Name:</label>
                                 <input type="text" class="form-control" id="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="bio">Bio:</label>
-                                <textarea class="form-control" rows="3" id="bio" required></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Add Friend</button>
                         </form>
