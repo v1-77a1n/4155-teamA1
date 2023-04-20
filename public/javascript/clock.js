@@ -1,3 +1,7 @@
+window.onload = function () {
+    displayTime(); 
+}
+
 function displayTime(){
     var date = new Date();
     var k = date.getHour();

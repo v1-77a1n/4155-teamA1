@@ -10,6 +10,7 @@
     crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="/javascript/clock.js"></script>
 </head>
 
 <body>
@@ -20,6 +21,7 @@
                     <a href="/"><img src="/images/logo.png" alt="logo" class="img-fluid" id="logo-image" width="115px"
                             height="90px"></a>
                     <ul class="list-inline my-auto" id="nav1-options">
+                        <span class="WorldClock"></span>
                         <li class="list-inline-item me-4"><a href="/">Home</a></li>
                         <%if(!user) {%>
                             <li class="list-inline-item me-4"><a href="/users/login">Login</a></li>
