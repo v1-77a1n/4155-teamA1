@@ -11,8 +11,8 @@ const userSchema = new Schema({
     bookmarks: {type: Array},
     interests: {type: Array},
     dislikes: {type: Array},
-    friends: {type: Array}, //This is an array of user ObjectIds
-    inbox: {type: Array} //This is an array of message ObjectIds
+    friends: [{type: Schema.Types.ObjectId, ref: 'User'}], //This is an array of user ObjectIds
+    inbox: [{type: Schema.Types.ObjectId, ref: 'Message'}] //This is an array of message ObjectIds
 });
 
 userSchema.pre('save', function(next) {
