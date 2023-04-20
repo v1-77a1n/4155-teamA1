@@ -6,10 +6,10 @@
         <div class="content">
             <form action="/users/send_message" method="POST">
                 <label for="friend">Recipient: </label><input type="text" value="<%= recip %>" id="friend" name="friend" readonly><br>
-                <label for="subject">Subject: </label><input type="text" value="RE: <%= message.subject %>" id="subject" name="subject" disabled><br>
+                <label for="subject">Subject: </label><input type="text" value="RE: <%= message.subject %>" id="subject" name="subject" readonly><br>
                 <label for="text">Message: </label><br>
-                <input type="textbox" value="-------------\n<%= message.msg%>" id="text" name="text" min="10" required><br>
-                <input type="button" value="Send Message" id="sendMessage">
+                <input type="textbox" value="" id="text" name="text" min="10" required><br>
+                <input type="submit" value="Send Message" id="sendMessage">
             </form>
         </div>
         <%- include('../partials/footer.ejs')%>
