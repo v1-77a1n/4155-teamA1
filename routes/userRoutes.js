@@ -49,10 +49,10 @@ router.post('/friends', isLoggedIn, controller.addFriend);
 router.get('/send_message', isLoggedIn, controller.sendMessagePage);
 
 //POST for sending and replying to a message
-router.get('/send_message', isLoggedIn, controller.sendMessage);
+router.post('/send_message', isLoggedIn, controller.sendMessage);
 
 //GET reply message page
-//router.get('/reply_message', isLoggedIn, controller.reply);
+router.get('/reply_message', isLoggedIn, controller.reply);
 
 //Routing for messages page
 router.get('/messages', isLoggedIn, controller.messages);
