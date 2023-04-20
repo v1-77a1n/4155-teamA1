@@ -21,6 +21,8 @@ router.get('/settings', isLoggedIn, controller.settings);
 //Routing for adding to bookmarks
 router.get('/bookmarks-add', isLoggedIn, controller.addToBookmarks);
 
+router.get('/bookmarks-del', isLoggedIn, controller.delBookmark)
+
 router.post('/', isLoggedIn, controller.saveInterestToDb);
 
 

@@ -16,6 +16,10 @@
                                 <% if(user.bookmarks.length) {%>
                                     <%user.bookmarks.forEach(item => {%>
                                         <a href="<%= item["link"]%>"><li><%=item["title"]%></li></a>
+
+                                        <form>
+                                            <a href="/bookmarks-del?title=<%= item['title'] + '&link=' + item['link'] %>"><input type="button" id="deleteBtn" value="Delete"></a>
+                                        </form>
                                     <%})%>
                                 <%} else {%>
                                     <p>You have no bookmarks to display.</p>
