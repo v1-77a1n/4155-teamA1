@@ -1,7 +1,6 @@
 <%- include('../partials/header.ejs')%>
     <title>Friends</title>
     <link type="text/css" rel="stylesheet" href="/css/login.css">
-    <script src="/javascript/friends"></script>
     <%- include('../partials/header-end.ejs')%>
         <div id="preloader"></div>
         <div class="content">
@@ -14,7 +13,7 @@
                                 <% friendArr.forEach((friend)=> {%>
                                     <li>
                                         <%= friend.firstName %>
-                                            <%= friend.lastName %> (<%=friend.email%>)
+                                            <%= friend.lastName %> (<%=friend.email%>) <a href="/users/send_message?friend=<%=friend.email%>"><input type="button" id="sendMessage"value="Send Message"></a>
                                     </li>
                                     <% }); %>
                             </ul>
@@ -24,8 +23,8 @@
                         <h3>Add a Friend</h3>
                         <form id="add-friend-form" action="/users/friends" method="POST">
                             <div class="form-group">
-                                <label for="name">Name:</label>
-                                <input type="text" class="form-control" id="name" required>
+                                <label for="email">Email:</label>
+                                <input type="text" class="form-control" id="email" name="email" required>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Add Friend</button>
                         </form>
