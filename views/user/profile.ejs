@@ -25,6 +25,20 @@
                                     <p>You have no bookmarks to display.</p>
                                 <%}%>
                             </ul>
+
+                        <h3>Here are your interests: </h3>
+                            <% if(user.interests.length) {%>
+                                <%user.interests.forEach(item => {%>
+                                    <li><%=item%></li>
+
+                                    <form>
+                                        <a href="/remove-interest?interests=<%=item%>"><input type="button" id="deleteBtn" value="Delete"></a>
+                                    </form>
+                                <%})%>
+                            <%} else {%>
+                                <p>You have no interests to display.</p>
+                            <%}%>
+                        </ul>
                 </div>
             </div>
         </div>

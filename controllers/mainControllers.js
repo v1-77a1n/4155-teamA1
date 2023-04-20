@@ -21,6 +21,21 @@ exports.saveInterestToDb = (req, res, next) => {
     })
 }
 
+exports.removeInterest = (req, res, next) => {
+    let userInterests = req.body.interest;
+    console.log(userInterests);
+    let id = req.session.user;
+    model.findOneAndUpdate({_id: id}, {$pull: {interests: userInterests}})
+    .then((user) => {
+        req.flash('success', "You've removed interest");
+        res.redirect('/users/profile');
+    })
+    .catch((err) => {
+        req.flash('error', 'There was an issue removing your interest.');
+        res.redirect('/users/profile');
+    })
+}
+
 exports.settings = (req, res) => {
     res.render('settings');
 };
@@ -69,15 +84,15 @@ exports.delBookmark = (req, res, next) => {
                 if (err) { next(err) }
 
                 if (user) {
-                    req.flash('success', 'The event has been added to your bookmarks');
-                    res.redirect('/bookmarks');
+                    req.flash('success', 'The event has been removed to your bookmarks');
+                    res.redirect('/users/profile');
                 } else {
-                    req.flash('error', 'There was an error adding this event to your bookmarks.');
+                    req.flash('error', 'There was an error removed this event to your bookmarks.');
                     res.redirect('/');
                 }
             })
         } else {
-            req.flash('error', 'There was an error adding this event to your bookmarks.');
+            req.flash('error', 'There was an error removing this event to your bookmarks.');
             res.redirect('/');
         }
     })

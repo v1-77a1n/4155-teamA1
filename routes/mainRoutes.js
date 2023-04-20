@@ -21,9 +21,13 @@ router.get('/settings', isLoggedIn, controller.settings);
 //Routing for adding to bookmarks
 router.get('/bookmarks-add', isLoggedIn, controller.addToBookmarks);
 
-router.get('/bookmarks-del', isLoggedIn, controller.delBookmark)
+//remove bookmark
+router.get('/bookmarks-del', isLoggedIn, controller.delBookmark);
 
+//add interest
 router.post('/', isLoggedIn, controller.saveInterestToDb);
+
+router.get('/remove-interest', isLoggedIn, controller.removeInterest);
 
 
 module.exports = router;
