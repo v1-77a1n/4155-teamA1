@@ -8,7 +8,7 @@
             <p><b>Subject: </b><%= message.subject %></b></p><br>
             <p class="messageBody"> <%= message.msg %></p>
             <form>
-                <a href="/users/reply_message?id=<%=message._id%>&edit=true"><input type="button" id="replyBtn" value="Reply"></a> <a href="/users/view_message?id=<%= message._id %>&delete=true"><input type="button" id="deleteBtn" value="Delete"></a>
+                <a href="/users/reply_message?id=<%=message._id%>&edit=true"><input type="button" id="replyBtn" value="Reply"></a> <a href="/users/delete_message?id=<%= message._id %>"><input type="button" id="deleteBtn" value="Delete"></a>
             </form>
         </div>
         <%- include('../partials/footer.ejs')%>
