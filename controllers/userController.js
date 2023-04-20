@@ -427,18 +427,28 @@ exports.deleteMessage = (req, res, next) => {
 
      model.findOne({_id: userId})
     .then((user) => {
-         if(user.inbox.includes(messageId)) {
-            Promise.all([model.findOneAndUpdate({_id: messageId}, {$pull: { inbox: messageId }}), message.findByIdAndDelete(messageId, { useFindAndModify: false, runValidators: true})])
+        if(user.inbox.includes(messageId)) {
+            user.inbox.pull(messageId);
+            user.save()
             .then((result) => {
                 if(result) {
-                    req.flash('success', 'The message has successfully been deleted');
-                    res.redirect('/users/messages');
+                    message.findByIdAndDelete(messageId, { userFindAndModify: false, runValidators: true})
+                    .then((result) => {
+                        if(result) {
+                            req.flash('success', 'Message has been deleted.');
+                            res.redirect('/users/messages');
+                        }
+                    })
+                    .catch((err)=>next(err));
                 } else {
-                    let err = new Error('Cannot find a message with the id ' + id);
-                    err.status = 404;
-                    next(err);
+                    req.flash('error', 'There was an issue deleting the message');
+                    res.redirect('/users/messages');
                 }
             })
+            .catch((err)=>next(err));
+        } else {
+            req.flash('error', 'The specified message does not exist or cannot be found.');
+            res.redirect('/users/messages');
         }
     })
     .catch((err)=>next(err));
