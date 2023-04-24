@@ -147,7 +147,7 @@ function displayTime() {
     var date = new Date();
     var currentDate = new Date(date);
     var h = currentDate.getHours();
-    var m = currentDate.currentgetMinutes();
+    var m = currentDate.getMinutes();
     var s = currentDate.getSeconds();
     var session = "AM";
   
