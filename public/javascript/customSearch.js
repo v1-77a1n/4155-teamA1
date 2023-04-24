@@ -26,6 +26,9 @@ window.onload = function () {
             counter++;
         }
     };
+     //function calls for clock
+    displayTime();
+    setInterval(displayTime, 1000); // update the clock every second
 }
 //Holds all geolocation scripting on the index page.
 
@@ -139,3 +142,30 @@ function displayEvents(data) {
         }
     }
 }
+//Function to display time.
+function displayTime() {
+    var date = new Date();
+    var currentDate = new Date(date);
+    var h = currentDate.getHours();
+    var m = currentDate.currentgetMinutes();
+    var s = currentDate.getSeconds();
+    var session = "AM";
+  
+    if (h > 12) {
+      h = h - 12;
+      session = "PM";
+    }
+    
+    if (h == 0) {
+      h = 12;
+    }
+  
+    h = (h < 10) ? "0" + h : h;
+    m = (m < 10) ? "0" + m : m;
+    s = (s < 10) ? "0" + s : s;
+  
+    var time = h + ":" + m + ":" + s + " " + session;
+  
+    document.getElementById("WorldClock").innerText = time;
+    document.getElementById("WorldClock").textContent = time;
+  }
