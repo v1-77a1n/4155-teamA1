@@ -19,9 +19,12 @@
             <div class="col-*-auto">
                 <nav class="d-flex justify-content-between mx-5" id="nav1">
                     <a href="/"><img src="/images/logo.png" alt="logo" class="img-fluid" id="logo-image" width="115px"
-                            height="90px"></a>
-                    <ul class="list-inline my-auto" id="nav1-options">
-                        <span class="WorldClock"></span>
+                           height="90px"></a>
+                           <div id ="WorldClock" class="clock"> 
+                            <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+                           </div>
+
+                         <ul class="list-inline my-auto" id="nav1-options">
                         <li class="list-inline-item me-4"><a href="/">Home</a></li>
                         <%if(!user) {%>
                             <li class="list-inline-item me-4"><a href="/users/login">Login</a></li>
@@ -33,11 +36,14 @@
                                 <li class="list-inline-item me-4"><a href="/settings">Settings</a></li>
                                 <li class="list-inline-item me-4"><a href="/users/logout">Logout</a></li>"
                                 <%}%>
-                    </ul>
+                            
+                        </ul>
+                    <!-- </div> -->
                 </nav>
                 <hr class="mx-auto d-block" id="nav-line">
             </div>
         </div>
+    <!-- </div> -->
     </header>
     <section id="errorHeader">
         <% if(errorMessages.length> 0) {%>
