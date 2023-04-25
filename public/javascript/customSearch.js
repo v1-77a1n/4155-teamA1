@@ -78,21 +78,22 @@ async function getLocation(lat, long) {
     const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + long + ', ' + lat + '.json?access_token=' + ACCESS_TOKEN;
     const reply = await fetch(url);
     const data = await reply.json();
-
+    let l = data.features.length;
     //Update headers with city name
-    loc_header.innerText = "Location: " + data.features[2].text + ", " + data.features[5].text;
-    result_header.innerText = 'Here are some things to do in ' + data.features[2].text + ":";
+    loc_header.innerText = "Location: " + data.features[l-4].text + ", " + data.features[l-1].text;
+    result_header.innerText = 'Here are some things to do in ' + data.features[l-4].text + ":";
     console.log(data);
     getQuery(data); //TODO: Replace with button on page
 }
 
 //Uses Google CustomSearch API call to return JSON of search results with custom params
 async function getQuery(data) {
+    let l = data.features.length;
     interests = interestHolder.textContent;
-    let user_location = data.features[2].text + ", " + data.features[5].text; //City, State
-    let city = data.features[2].text;
-    let county = data.features[3].text;
-    let state = data.features[4].text;
+    let user_location = data.features[l-4].text + ", " + data.features[l-1].text; //City, State
+    let city = data.features[l-4].text;
+    let county = data.features[l-3].text;
+    let state = data.features[l-2].text;
     let query="";
 
     if(interests.length==0){
