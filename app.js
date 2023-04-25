@@ -7,13 +7,13 @@ const Mongoose = require('mongoose');
 const mainRoutes = require('./routes/mainRoutes');
 const userRoutes = require('./routes/userRoutes');
 const methodOverride = require('method-override');
+const { dbPass } = require('./public/.hidden/secret');
 
 const app = express();
 
-const password = encodeURIComponent("cwWBPf8c3ypio768");
 let port = 8080;
 let host = 'localhost';
-let db = 'mongodb+srv://admin:' + password + '@dbitl.9mwv6wq.mongodb.net/dbITL';
+let db = 'mongodb+srv://admin:' + dbPass + '@dbitl.9mwv6wq.mongodb.net/dbITL';
 app.set('view engine', 'ejs');
 
 //Connecting to Database
