@@ -5,16 +5,16 @@ const message = require('../models/message');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const { user, pass } = require('../public/.hidden/secret');
 
 //transporter for emailing
 const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: 'smtp.zoho.com',
     port: 465,
     secure: true,
     auth: {
-        user: "noreply.intheloop@gmail.com",
-        pass: "kziicheouikmuaey"
+        user: user,
+        pass: pass
     }
 });
 
@@ -303,7 +303,7 @@ exports.logout = (req, res, next) => {
 
 function sendEmail(email, title, content) {
     let mailConfigs = {
-        from: "intheloop.sys@gmail.com",
+        from: "intheloop.system@zohomail.com",
         to: email,
         subject: title,
         html: content
