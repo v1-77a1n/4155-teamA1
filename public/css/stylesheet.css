@@ -187,6 +187,6 @@ body {
 }
 
 .hidden{ /*Used for client-side values such as interests, dislikes, requirements*/
-    /*display: none;*/ /*This will be activated when the code is done being tested*/
+    /* display: none; /*This will be activated when the code is done being tested*/
     font-size: 24px;
 }

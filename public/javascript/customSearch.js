@@ -90,6 +90,7 @@ async function getLocation(lat, long) {
 async function getQuery(data) {
     let l = data.features.length;
     interests = interestHolder.textContent;
+    let dislikes = dislikeHolder.textContent;
     let user_location = data.features[l-4].text + ", " + data.features[l-1].text; //City, State
     let city = data.features[l-4].text;
     let county = data.features[l-3].text;
@@ -100,7 +101,7 @@ async function getQuery(data) {
         query = "https://customsearch.googleapis.com/customsearch/v1?cx=37c4d5366145548fd&dateRestrict="
         + date_range + "&exactTerms=" + state
         + "&excludeTerms="
-        + exclusions + "&num=10&orTerms="
+        + dislikes + "&num=10&orTerms="
         + interests + "&q=" + "Things to do in "+city
         + "&start="
         + offset + "&key=AIzaSyB384QbDLqf1z-2zKAvc1gwb2ADcEsYhTE";
@@ -111,12 +112,11 @@ async function getQuery(data) {
         query = "https://customsearch.googleapis.com/customsearch/v1?cx=37c4d5366145548fd&dateRestrict="
         + date_range + "&exactTerms=" + requirements
         + "&excludeTerms="
-        + exclusions + "&num=10&orTerms="
+        + dislikes + "&num=10&orTerms="
         + interests + "&q=" + interestHolder.textContent + "," + city + "," + county + "," + state
         + "&start="
         + offset + "&key=AIzaSyB384QbDLqf1z-2zKAvc1gwb2ADcEsYhTE";
     }
-    
 
     let q_reply = await fetch(query);
     q_data = await q_reply.json();

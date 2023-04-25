@@ -29,5 +29,10 @@ router.post('/', isLoggedIn, controller.saveInterestToDb);
 
 router.get('/remove-interest', isLoggedIn, controller.removeInterest);
 
+//add dislike
+router.post('/dislike', isLoggedIn, controller.saveDislikeToDb);
+
+router.get('/remove-dislike', isLoggedIn, controller.removeDislike);
+
 
 module.exports = router;

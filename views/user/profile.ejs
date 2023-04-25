@@ -38,6 +38,19 @@
                             <%} else {%>
                                 <p>You have no interests to display.</p>
                             <%}%>
+
+                            <h3>Here are your dislikes: </h3>
+                            <% if(user.dislikes.length) {%>
+                                <%user.dislikes.forEach(item => {%>
+                                    <li><%=item%></li>
+
+                                    <form>
+                                        <a href="/remove-dislike?dislikes=<%=item%>"><input type="button" id="deleteBtn" value="Delete"></a>
+                                    </form>
+                                <%})%>
+                            <%} else {%>
+                                <p>You have no dislikes to display.</p>
+                            <%}%>
                         </ul>
                 </div>
             </div>
