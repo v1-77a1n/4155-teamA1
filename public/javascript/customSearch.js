@@ -78,27 +78,47 @@ async function getLocation(lat, long) {
     const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + long + ', ' + lat + '.json?access_token=' + ACCESS_TOKEN;
     const reply = await fetch(url);
     const data = await reply.json();
-    const city = data.features[3].text;
 
     //Update headers with city name
-    loc_header.innerText = "Location: " + city + ", " + data.features[5].text;
-    result_header.innerText = 'Here are some things to do in ' + city + ":";
+    loc_header.innerText = "Location: " + data.features[2].text + ", " + data.features[5].text;
+    result_header.innerText = 'Here are some things to do in ' + data.features[2].text + ":";
     console.log(data);
     getQuery(data); //TODO: Replace with button on page
 }
 
 //Uses Google CustomSearch API call to return JSON of search results with custom params
 async function getQuery(data) {
-    let user_location = data.features[3].text + ", " + data.features[5].text; //City, State
+    interests = interestHolder.textContent;
+    let user_location = data.features[2].text + ", " + data.features[5].text; //City, State
+    let city = data.features[2].text;
+    let county = data.features[3].text;
+    let state = data.features[4].text;
+    let query="";
 
-    //Combine all query data to API Call
-    let query = "https://customsearch.googleapis.com/customsearch/v1?cx=37c4d5366145548fd&dateRestrict="
-        + date_range + "&exactTerms="
-        + requirements + "&excludeTerms="
+    if(interests.length==0){
+        alert("Length 0");
+        query = "https://customsearch.googleapis.com/customsearch/v1?cx=37c4d5366145548fd&dateRestrict="
+        + date_range + "&exactTerms=" + state
+        + "&excludeTerms="
         + exclusions + "&num=10&orTerms="
-        + interests + "&q="
-        + "Things to do in " + user_location + "&start="
+        + interests + "&q=" + "Things to do in "+city
+        + "&start="
         + offset + "&key=AIzaSyB384QbDLqf1z-2zKAvc1gwb2ADcEsYhTE";
+    }
+    else{
+    
+    //Combine all query data to API Call
+    alert("Regular Call");
+        query = "https://customsearch.googleapis.com/customsearch/v1?cx=37c4d5366145548fd&dateRestrict="
+        + date_range + "&exactTerms=" + requirements
+        + "&excludeTerms="
+        + exclusions + "&num=10&orTerms="
+        + interests + "&q=" + interestHolder.textContent + "," + city + "," + county + "," + state
+        + "&start="
+        + offset + "&key=AIzaSyB384QbDLqf1z-2zKAvc1gwb2ADcEsYhTE";
+    }
+    
+    alert("Query = " +query);
 
     let q_reply = await fetch(query);
     q_data = await q_reply.json();
@@ -130,6 +150,7 @@ function displayEvents(data) {
     
             a.appendChild(textNode);
             a.setAttribute("href", obj["link"]);
+            a.setAttribute("target", "_blank");
     
             buttonLink.setAttribute("href", queryStr);
             buttonLink.appendChild(button);
@@ -154,6 +175,10 @@ function displayTime() {
     if (h > 12) {
       h = h - 12;
       session = "PM";
+    }
+
+    if(h==12){
+        session="PM";
     }
     
     if (h == 0) {
