@@ -96,7 +96,6 @@ async function getQuery(data) {
     let query="";
 
     if(interests.length==0){
-        alert("Length 0");
         query = "https://customsearch.googleapis.com/customsearch/v1?cx=37c4d5366145548fd&dateRestrict="
         + date_range + "&exactTerms=" + state
         + "&excludeTerms="
@@ -108,7 +107,6 @@ async function getQuery(data) {
     else{
     
     //Combine all query data to API Call
-    alert("Regular Call");
         query = "https://customsearch.googleapis.com/customsearch/v1?cx=37c4d5366145548fd&dateRestrict="
         + date_range + "&exactTerms=" + requirements
         + "&excludeTerms="
@@ -118,7 +116,6 @@ async function getQuery(data) {
         + offset + "&key=AIzaSyB384QbDLqf1z-2zKAvc1gwb2ADcEsYhTE";
     }
     
-    alert("Query = " +query);
 
     let q_reply = await fetch(query);
     q_data = await q_reply.json();
