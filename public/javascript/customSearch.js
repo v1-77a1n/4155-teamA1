@@ -165,29 +165,29 @@ function displayEvents(data) {
 function displayTime() {
     var date = new Date();
     var currentDate = new Date(date);
-    var h = currentDate.getHours();
-    var m = currentDate.getMinutes();
-    var s = currentDate.getSeconds();
+    var k = currentDate.getHours();
+    var c = currentDate.getMinutes();
+    var j = currentDate.getSeconds();
     var session = "AM";
   
-    if (h > 12) {
-      h = h - 12;
+    if (k > 12) {
+      k = k - 12;
       session = "PM";
     }
 
-    if(h==12){
+    if(k==12){
         session="PM";
     }
     
-    if (h == 0) {
-      h = 12;
+    if (k == 0) {
+      k = 12;
     }
   
-    h = (h < 10) ? "0" + h : h;
-    m = (m < 10) ? "0" + m : m;
-    s = (s < 10) ? "0" + s : s;
+    k = (k < 10) ? "0" + k : k;
+    c = (c < 10) ? "0" + c : c;
+    j = (j < 10) ? "0" + j : j;
   
-    var time = h + ":" + m + ":" + s + " " + session;
+    var time = k + ":" + c + ":" + j + " " + session;
   
     document.getElementById("WorldClock").innerText = time;
     document.getElementById("WorldClock").textContent = time;
