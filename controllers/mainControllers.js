@@ -22,17 +22,23 @@ exports.home = (req, res, next) => {
 
 exports.saveInterestToDb = (req, res, next) => {
     let userInterests = req.body.interest;
-    console.log(userInterests);
     let id = req.session.user;
-    model.findOneAndUpdate({_id: id}, {$push: {interests: userInterests}})
-    .then((user) => {
-        req.flash('success', "You've saved " + userInterests + " to your interests!");
-        res.redirect('/');
-    })
-    .catch((err) => {
-        req.flash('error', 'There was an issue saving your interest.');
-        res.redirect('/');
-    })
+    let dislikeVal = "";
+    let interestVal = userInterests;
+    if(id == null) {
+        res.render('index', {interestVal, dislikeVal});
+    } else {
+        model.findOneAndUpdate({_id: id}, {$push: {interests: userInterests}})
+        .then((user) => {
+            req.flash('success', "You've saved " + userInterests + " to your interests!");
+            res.redirect('/');
+        })
+        .catch((err) => {
+            req.flash('error', 'There was an issue saving your interest.');
+            res.redirect('/');
+        })
+    }
+    
 }
 
 exports.removeInterest = (req, res, next) => {
