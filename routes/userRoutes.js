@@ -1,6 +1,7 @@
 const express = require('express');
 const controller = require('../controllers/userController');
 const { isGuest, isLoggedIn } = require('../middlewares/auth');
+const {logInLimiter} = require('../middlewares/rateLimiters');
 const router = express.Router();
 
 
@@ -14,7 +15,7 @@ router.post('/new', isGuest, controller.newUser);
 router.get('/login', isGuest, controller.login);
 
 //Routing for POST to handle login
-router.post('/login', isGuest, controller.loggingIn);
+router.post('/login', logInLimiter, isGuest, controller.loggingIn);
 
 //Routing for requesting password reset as Guest
 router.get('/req-pass-change', isGuest, controller.requestPasswdLink);
