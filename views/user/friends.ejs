@@ -17,6 +17,8 @@
                                                         href="/users/send_message?friend=<%=friend.email%>"><input
                                                             type="button" id="sendMessage" class="ms-2"
                                                             value="Send Message"></a>
+                                                    <a href="/users/delete_friend/<%= friend._id %>"><button
+                                                            type="button" class="btn btn-danger">Delete</button></a>
                                     </li>
                                     <% }); %>
                             </ul>

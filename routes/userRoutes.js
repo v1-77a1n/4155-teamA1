@@ -1,7 +1,7 @@
 const express = require('express');
 const controller = require('../controllers/userController');
 const { isGuest, isLoggedIn } = require('../middlewares/auth');
-const {logInLimiter} = require('../middlewares/rateLimiters');
+const { logInLimiter } = require('../middlewares/rateLimiters');
 const router = express.Router();
 
 
@@ -45,6 +45,9 @@ router.get('/friends', isLoggedIn, controller.friends);
 
 // POST add friend
 router.post('/friends', isLoggedIn, controller.addFriend);
+
+// GET request to delete a friend from current user's account
+router.get('/delete_friend/:friendId', isLoggedIn, controller.deleteFriend);
 
 //Get send message page
 router.get('/send_message', isLoggedIn, controller.sendMessagePage);

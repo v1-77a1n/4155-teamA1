@@ -41,6 +41,7 @@ app.use((req, res, next) => {
     res.locals.user = req.session.user || null;
     res.locals.successMessages = req.flash('success');
     res.locals.errorMessages = req.flash('error');
+    res.locals.email = req.session.email || null;
     next();
 });
 
