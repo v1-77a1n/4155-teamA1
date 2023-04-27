@@ -25,7 +25,7 @@ router.get('/bookmarks-add', isLoggedIn, controller.addToBookmarks);
 router.get('/bookmarks-del', isLoggedIn, controller.delBookmark);
 
 //add interest
-router.post('/', isLoggedIn, controller.saveInterestToDb);
+router.post('/', controller.saveInterestToDb);
 
 router.get('/remove-interest', isLoggedIn, controller.removeInterest);
 

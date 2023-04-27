@@ -25,6 +25,7 @@ exports.saveInterestToDb = (req, res, next) => {
     let id = req.session.user;
     let dislikeVal = "";
     let interestVal = userInterests;
+    //If user is guest then take vals and render
     if(id == null) {
         res.render('index', {interestVal, dislikeVal});
     } else {
