@@ -106,7 +106,7 @@ exports.addToBookmarks = (req, res, next) => {
 
                 if (user) {
                     req.flash('success', 'The event has been added to your bookmarks');
-                    res.redirect('/users/profile');
+                    res.redirect('/users/profile'); //fixed routing
                 } else {
                     req.flash('error', 'There was an error adding this event to your bookmarks.');
                     res.redirect('/');
