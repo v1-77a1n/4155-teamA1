@@ -3,7 +3,9 @@
         "description": "description",
         "authors": "author",
         "version": "1.0.0",
-        "main": "app",
+        "scripts": {
+                "start": "node app"
+        },
         "dependencies": {
                 "bcrypt": "^5.1.0",
                 "connect-flash": "^0.1.1",
